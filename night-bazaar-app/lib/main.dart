@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/view/home.dart';
+import 'package:prototip/view/main-screen.dart';
 import 'package:prototip/view/splash.dart';
 
 void main() => runApp(const ProviderScope(child: MyApp()));
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => Splash(),
-        "/home": (context) => const Home(),
+        "/mainScreen": (context) => const MainScreen(),
       },
       debugShowCheckedModeBanner: false,
       //navigatorKey: Grock.navigationKey, //Sayfa geçiş işlemlerinde kullanılacak

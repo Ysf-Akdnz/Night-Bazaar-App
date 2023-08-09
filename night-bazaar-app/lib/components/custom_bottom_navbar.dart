@@ -4,20 +4,32 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/view/assets.dart';
 
-class CostumButtomNavBar extends StatefulWidget with PreferredSizeWidget {
+class CostumBottomNavBar extends StatefulWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
+  final int initialIndex; //Başlangıç indeksi
+  final ValueChanged<int>
+      onIndexChanged; //Indeksin değiştiğinde geri çağrı işlevi
 
-  CostumButtomNavBar({Key? key})
-      : preferredSize = const Size.fromHeight(56.0),
+  CostumBottomNavBar({
+    Key? key,
+    required this.initialIndex,
+    required this.onIndexChanged,
+  })  : preferredSize = const Size.fromHeight(56.0),
         super(key: key);
 
   @override
-  State<CostumButtomNavBar> createState() => _CostumButtomNavBarState();
+  State<CostumBottomNavBar> createState() => _CostumBottomNavBarState();
 }
 
-class _CostumButtomNavBarState extends State<CostumButtomNavBar> {
-  int index = 0;
+class _CostumBottomNavBarState extends State<CostumBottomNavBar> {
+  int index = 1;
+
+  @override
+  void initState() {
+    index = widget.initialIndex; //Başlangıçta verilen indek değeri
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,9 @@ class _CostumButtomNavBarState extends State<CostumButtomNavBar> {
       color: Constant.whiteGrey.withOpacity(0.5),
       onTap: (selectedIndex) {
         setState(() {
-          index = selectedIndex;
+          index = selectedIndex; //Seçilen simgenin indeksini güncelle
+          widget.onIndexChanged(
+              selectedIndex); //MainScreendeki indeksi güncellemek için geri çağrı yap
         });
       },
       items: [

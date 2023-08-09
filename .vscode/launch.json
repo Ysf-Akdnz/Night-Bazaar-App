@@ -5,21 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "prototip",
-            "cwd": "prototip",
+            "name": "night-bazaar-app",
+            "cwd": "night-bazaar-app",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "prototip (profile mode)",
-            "cwd": "prototip",
+            "name": "night-bazaar-app (profile mode)",
+            "cwd": "night-bazaar-app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "prototip (release mode)",
-            "cwd": "prototip",
+            "name": "night-bazaar-app (release mode)",
+            "cwd": "night-bazaar-app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
