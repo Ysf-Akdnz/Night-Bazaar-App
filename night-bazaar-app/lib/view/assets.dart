@@ -18,5 +18,6 @@ class _AssetsIcons {
   final icSearchIcon = 'assets/icons/search-icon.svg';
   final icProfileIcon = 'assets/icons/profile-icon.svg';
   final icHomeIcon = 'assets/icons/home-icon.svg';
-  final icBasketIcon = 'assets/icons/basket-icon.svg';
+  final icCartIcon = 'assets/icons/cart-icon.svg';
+  final icWishlistIcon = 'assets/icons/wishlist-icon.svg';
 }
