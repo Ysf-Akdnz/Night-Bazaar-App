@@ -14,7 +14,7 @@ class CostumBottomNavbar extends ConsumerWidget {
       items: read.items,
       index: watch.currentIndex,
       height: 56,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Constant.darkGrey,
       animationDuration: const Duration(milliseconds: 300),
       color: Constant.whiteGrey.withOpacity(0.5),
       onTap: (newPageIndex) => read.setCurrentIndex(newPageIndex),
