@@ -7,6 +7,7 @@ import 'package:prototip/riverpod/base_scaffold_rivepod.dart';
 final baseScaffoldRiverpod =
     ChangeNotifierProvider((ref) => BaseScaffoldRiverpod());
 
+// ignore: use_key_in_widget_constructors
 class BaseScaffold extends ConsumerStatefulWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _BaseScaffoldState();
@@ -18,11 +19,14 @@ class _BaseScaffoldState extends ConsumerState<BaseScaffold> {
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppbar(),
-        bottomNavigationBar: CostumBottomNavbar(),
-        body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: ref.watch(baseScaffoldRiverpod).getSelectedWidget()),
+        bottomNavigationBar: const CustomBottomNavbar(),
+        body: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: ref.watch(baseScaffoldRiverpod).getSelectedWidget()),
+        ),
       ),
     );
   }

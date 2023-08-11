@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/view/base_scaffold.dart';
 
-class CostumBottomNavbar extends ConsumerWidget {
-  const CostumBottomNavbar({super.key});
+class CustomBottomNavbar extends ConsumerWidget {
+  const CustomBottomNavbar({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var watch = ref.watch(baseScaffoldRiverpod);
@@ -17,7 +17,12 @@ class CostumBottomNavbar extends ConsumerWidget {
       backgroundColor: Constant.darkGrey,
       animationDuration: const Duration(milliseconds: 300),
       color: Constant.whiteGrey.withOpacity(0.5),
-      onTap: (newPageIndex) => read.setCurrentIndex(newPageIndex),
+      onTap: (newPageIndex) {
+        if (newPageIndex != watch.currentIndex) {
+          // Önceki sayfadan yeni sayfaya animasyonlu geçiş
+          read.setCurrentIndex(newPageIndex);
+        }
+      },
     );
   }
 }

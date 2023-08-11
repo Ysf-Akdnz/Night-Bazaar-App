@@ -22,8 +22,9 @@ class _AssetsIcons {
 
   final icMenuIcon = 'assets/icons/menu-icon.svg';
   final icSearchIcon = 'assets/icons/search-icon.svg';
-  final icProfileIcon = 'assets/icons/profile-icon.svg';
+  final icCategoryIcon = 'assets/icons/category-icon.svg';
+  final icWishlistIcon = 'assets/icons/wishlist-icon.svg';
   final icHomeIcon = 'assets/icons/home-icon.svg';
   final icCartIcon = 'assets/icons/cart-icon.svg';
-  final icWishlistIcon = 'assets/icons/wishlist-icon.svg';
+  final icProfileIcon = 'assets/icons/profile-icon.svg';
 }

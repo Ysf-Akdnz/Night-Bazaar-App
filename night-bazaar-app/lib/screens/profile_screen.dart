@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
           style: GoogleFonts.eduSaBeginner(
               fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         CircleAvatar(
           backgroundColor: Constant.ligthAmber,
           radius: 70,

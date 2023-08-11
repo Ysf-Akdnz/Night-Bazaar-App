@@ -3,10 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/product.dart';
 
+// ignore: must_be_immutable
 class ProductCard extends StatelessWidget {
   Product product;
 
-  ProductCard({required this.product});
+  ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +46,12 @@ class ProductCard extends StatelessWidget {
                   ),
                   product.isSaved
                       ? const Icon(
+                          Icons.bookmark,
+                          color: Constant.ligthAmber,
+                        )
+                      : const Icon(
                           Icons.bookmark_border_rounded,
                           color: Constant.lightPurple,
-                        )
-                      : Icon(
-                          Icons.bookmark,
-                          color: Constant.nightAmber,
                         )
                 ],
               ),
@@ -70,7 +71,7 @@ class ProductCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.star_rate_rounded,
                       color: Constant.amber,
                     ),

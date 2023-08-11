@@ -4,6 +4,8 @@ import 'package:prototip/constant/constant.dart';
 import 'package:prototip/view/assets.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({super.key});
+
   @override
   State<Splash> createState() => _SplashState();
 }
@@ -25,7 +27,7 @@ class _SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: 200,
               height: 200,
               //padding: EdgeInsets.all(115),

@@ -27,16 +27,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     var read = ref.read(homeRiverpod);
     // Ekran yüksekliği hesaplanır.
     double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      child: ListView(
-        children: [
-          // Kampanya resimlerini yatay bir şekilde göstermek için
-          // PageView.builder kullanılır.
-          Campaigns(screenHeight, read, watch),
-          homeProductCategories(read.hotDeals),
-          homeProductCategories(read.mostPopular),
-        ],
-      ),
+    return ListView(
+      children: [
+        Campaigns(screenHeight, read, watch),
+        homeProductCategories(read.hotDeals),
+        homeProductCategories(read.mostPopular),
+      ],
     );
   }
 
@@ -64,23 +60,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ],
           ),
         ),
-        SizedBox(
-          height: 270,
-          child: ListView.separated(
-            separatorBuilder: (context, index) => const SizedBox(width: 10),
-            itemCount: model.products.length,
-            padding: const EdgeInsets.only(
-                left: 10, right: 10, top: 7.5, bottom: 7.5),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: ((context, index) {
-              return ProductCard(product: model.products[index]);
-            }),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: SizedBox(
+            height: 270,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(width: 10),
+              itemCount: model.products.length,
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 7.5, bottom: 7.5),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: ((context, index) {
+                return ProductCard(product: model.products[index]);
+              }),
+            ),
           ),
         )
       ],
     );
   }
 
+  // ignore: non_constant_identifier_names
   SizedBox Campaigns(
       double screenHeight, HomeRiverpod read, HomeRiverpod watch) {
     return SizedBox(
@@ -90,6 +90,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Align CampaignsDot(HomeRiverpod read) {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -102,7 +103,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               Container(
                 width: 8,
                 height: 8,
-                margin: EdgeInsets.all(3),
+                margin: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                     color: read.campaignsCurrentIndex == i
                         ? Constant.white
@@ -115,6 +116,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   PageView CampaignsPageView(HomeRiverpod read, HomeRiverpod watch) {
     return PageView.builder(
       controller: read.pageController,

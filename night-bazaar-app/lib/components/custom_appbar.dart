@@ -5,6 +5,7 @@ import 'package:prototip/constant/constant.dart';
 
 import '../view/assets.dart';
 
+// ignore: must_be_immutable
 class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
@@ -19,9 +20,18 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Constant.whiteGrey.withOpacity(0.8),
+      leading: Padding(
+        padding: const EdgeInsets.all(13),
+        child: SvgPicture.asset(
+          Assets.icons.icMenuIcon,
+          color: Constant.ligthAmber,
+          width: 32,
+          height: 32,
+        ),
+      ),
       actions: [
         Padding(
-          padding: EdgeInsets.all(13),
+          padding: const EdgeInsets.all(13),
           child: SvgPicture.asset(
             Assets.icons.icSearchIcon,
             color: Constant.ligthAmber,
@@ -33,8 +43,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
       flexibleSpace: Stack(
         children: [
           Container(
-            margin: const EdgeInsetsDirectional.only(start: 15),
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: Text(
               appbarTitle,
               style: GoogleFonts.caveat(

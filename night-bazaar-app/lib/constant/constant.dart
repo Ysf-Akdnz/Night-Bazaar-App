@@ -16,5 +16,4 @@ class Constant {
   static const Color purple = Color(0xFFBB86FC);
   static const Color lightPurple = Color(0xFFB1BEE7);
   static const Color whitePurple = Color(0xFFF3E5F5);
-  static const Color ASD = Colors.purple;
 }
