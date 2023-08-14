@@ -11,20 +11,16 @@ void main() => runApp(const ProviderScope(child: MyApp()));
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'E-Ticaret Uygulaması',
       initialRoute: "/",
       routes: {
-        "/": (context) => Splash(),
+        "/": (context) => const Splash(),
         "/baseScaffold": (context) => BaseScaffold()
       },
       debugShowCheckedModeBanner: false,
-      //navigatorKey: Grock.navigationKey, //Sayfa geçiş işlemlerinde kullanılacak
-      //scaffoldMessengerKey:
-      //    Grock.scaffoldMessengerKey, //Bildirimleri göstermek için kullanılacak
       theme: ThemeData(scaffoldBackgroundColor: Constant.darkGrey),
     );
   }

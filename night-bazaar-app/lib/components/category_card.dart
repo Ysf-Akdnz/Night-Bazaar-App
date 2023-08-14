@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constant/constant.dart';
 import '../model/category.dart';
 
+// Kategori modelini temsil eden sınıf.
 // ignore: must_be_immutable
 class CategoryCard extends StatelessWidget {
   Category category;
@@ -12,6 +13,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Kategori kartı tasarımını oluşturan widget döndürülür.
     return Container(
       width: 150,
       decoration: BoxDecoration(

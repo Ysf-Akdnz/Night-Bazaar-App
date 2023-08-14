@@ -3,6 +3,7 @@ import 'package:prototip/model/category.dart';
 import '../model/category_model.dart';
 import '../view/assets.dart';
 
+// Kategori verisinin yönetildiği Riverpod sağlayıcısı.
 class CategoryRiverpod extends ChangeNotifier {
   CategoryModel categoryModel =
       CategoryModel(categoryTitle: "Categories", category: [

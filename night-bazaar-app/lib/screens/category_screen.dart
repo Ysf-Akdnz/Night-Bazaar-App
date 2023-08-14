@@ -4,9 +4,10 @@ import 'package:prototip/components/category_card.dart';
 import 'package:prototip/model/category_model.dart';
 import 'package:prototip/riverpod/category_riverpod.dart';
 
-
+// Kategori verisinin Riverpod sağlayıcısını oluşturur.
 final categoryRiverpod = ChangeNotifierProvider(((ref) => CategoryRiverpod()));
 
+// Kategori verisinin Riverpod sağlayıcısını oluşturur.
 class CategoryScreen extends ConsumerStatefulWidget {
   const CategoryScreen({super.key});
   @override
@@ -16,11 +17,14 @@ class CategoryScreen extends ConsumerStatefulWidget {
 class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
+    // Kategori Riverpod sağlayıcısını okur.
     var read = ref.read(categoryRiverpod);
     double screenHeight = MediaQuery.of(context).size.height;
+    // Kategori listesini ve ekran yüksekliğini kullanan bir widget döndürür.
     return categories(read.categoryModel, screenHeight);
   }
 
+  // Kategori listesini ve ekran yüksekliğini kullanarak bir widget oluşturan fonksiyon.
   Widget categories(CategoryModel model, double screenHeight) {
     return SingleChildScrollView(
       child: Column(
@@ -41,6 +45,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                     left: 10, right: 10, top: 7.5, bottom: 7.5),
                 scrollDirection: Axis.vertical,
                 itemBuilder: ((context, index) {
+                  // Kategori kartını oluşturan bir widget döndürür.
                   return CategoryCard(
                     category: model.category[index],
                   );

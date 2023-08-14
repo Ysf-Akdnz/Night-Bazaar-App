@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/view/assets.dart';
 
+// Uygulamanın başlangıcında görünen splash ekranı.
 class Splash extends StatefulWidget {
   const Splash({super.key});
 
@@ -13,6 +14,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
+    // Ekranı 2 saniye görüntüledikten sonra BaseScaffold ekranına geçiş yapar.
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, "/baseScaffold");
     });
@@ -30,7 +32,6 @@ class _SplashState extends State<Splash> {
             SizedBox(
               width: 200,
               height: 200,
-              //padding: EdgeInsets.all(115),
               child: Image.asset(
                 Assets.images.imSplashPNG,
                 color: Constant.ligthAmber,

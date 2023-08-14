@@ -5,6 +5,7 @@ import 'package:prototip/constant/constant.dart';
 
 import '../view/assets.dart';
 
+// Özelleştirilmiş app bar'ı oluşturan widget.
 // ignore: must_be_immutable
 class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -20,6 +21,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Constant.whiteGrey.withOpacity(0.8),
+      // Sol taraftaki menü butonu.
       leading: Padding(
         padding: const EdgeInsets.all(13),
         child: SvgPicture.asset(
@@ -30,6 +32,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
       actions: [
+        // Sağ taraftaki arama butonu.
         Padding(
           padding: const EdgeInsets.all(13),
           child: SvgPicture.asset(

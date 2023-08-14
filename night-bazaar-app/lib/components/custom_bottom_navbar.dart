@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/view/base_scaffold.dart';
 
+// Kendi özelleştirilmiş alt navigasyon çubuğunu oluşturan widget.
 class CustomBottomNavbar extends ConsumerWidget {
   const CustomBottomNavbar({super.key});
   @override
@@ -11,15 +12,15 @@ class CustomBottomNavbar extends ConsumerWidget {
     var watch = ref.watch(baseScaffoldRiverpod);
     var read = ref.read(baseScaffoldRiverpod);
     return CurvedNavigationBar(
-      items: read.items,
-      index: watch.currentIndex,
+      items: read.items, // Navigasyon çubuğu elemanları.
+      index: watch.currentIndex, // Şu an seçili sayfanın indeksi.
       height: 56,
       backgroundColor: Constant.darkGrey,
       animationDuration: const Duration(milliseconds: 300),
       color: Constant.whiteGrey.withOpacity(0.5),
       onTap: (newPageIndex) {
+        // Yeni sayfaya geçildiğinde çalışan fonksiyon.
         if (newPageIndex != watch.currentIndex) {
-          // Önceki sayfadan yeni sayfaya animasyonlu geçiş
           read.setCurrentIndex(newPageIndex);
         }
       },

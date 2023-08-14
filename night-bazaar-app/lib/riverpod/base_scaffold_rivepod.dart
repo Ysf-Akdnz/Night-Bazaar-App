@@ -10,6 +10,7 @@ import 'package:prototip/view/assets.dart';
 
 double size = 25;
 
+// Temel navigasyon çubuğunu yöneten BaseScaffoldRiverpod sınıfı.
 class BaseScaffoldRiverpod extends ChangeNotifier {
   List<Widget> items = [
     SvgPicture.asset(Assets.icons.icCategoryIcon,
@@ -23,13 +24,14 @@ class BaseScaffoldRiverpod extends ChangeNotifier {
     SvgPicture.asset(Assets.icons.icProfileIcon,
         color: Constant.ligthAmber, width: size),
   ];
-  int currentIndex = 2; //navbar'da Başlangıç indeksi
+  int currentIndex = 2; // Başlangıçta görüntülenecek sayfanın indeksi
 
   setCurrentIndex(int index) {
-    currentIndex = index; //
+    currentIndex = index; // Seçilen indeksi güncelle
     notifyListeners();
   }
 
+// Şu an seçilen sayfa indeksine göre ilgili Widget'ı döndürür.
   Widget getSelectedWidget() {
     switch (currentIndex) {
       case 0:
