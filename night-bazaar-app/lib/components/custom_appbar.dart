@@ -21,42 +21,48 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Constant.whiteGrey.withOpacity(0.8),
+      centerTitle: true,
+      title: title(),
       // Sol taraftaki menü butonu.
-      leading: Padding(
-        padding: const EdgeInsets.all(13),
-        child: SvgPicture.asset(
-          Assets.icons.icMenuIcon,
-          color: Constant.ligthAmber,
-          width: 32,
-          height: 32,
-        ),
-      ),
+      leading: menuIcon(),
       actions: [
         // Sağ taraftaki arama butonu.
-        Padding(
-          padding: const EdgeInsets.all(13),
-          child: SvgPicture.asset(
-            Assets.icons.icSearchIcon,
-            color: Constant.ligthAmber,
-            width: 32,
-            height: 32,
-          ),
-        ),
+        searchIcon(),
       ],
-      flexibleSpace: Stack(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              appbarTitle,
-              style: GoogleFonts.caveat(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 25,
-                  color: Constant.ligthAmber),
-            ),
-          ),
-        ],
+    );
+  }
+
+  Padding searchIcon() {
+    return Padding(
+      padding: const EdgeInsets.all(13),
+      child: SvgPicture.asset(
+        Assets.icons.icSearchIcon,
+        color: Constant.ligthAmber,
+        width: 32,
+        height: 32,
       ),
+    );
+  }
+
+  Padding menuIcon() {
+    return Padding(
+      padding: const EdgeInsets.all(13),
+      child: SvgPicture.asset(
+        Assets.icons.icMenuIcon,
+        color: Constant.ligthAmber,
+        width: 32,
+        height: 32,
+      ),
+    );
+  }
+
+  Text title() {
+    return Text(
+      appbarTitle,
+      style: GoogleFonts.caveat(
+          fontStyle: FontStyle.italic,
+          fontSize: 25,
+          color: Constant.ligthAmber),
     );
   }
 }

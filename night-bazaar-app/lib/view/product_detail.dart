@@ -91,8 +91,9 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
             IconButton(
               onPressed: () => Get.back(),
               icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
+                Icons.keyboard_arrow_right_rounded,
                 color: Constant.whitePurple,
+                size: 40,
               ),
             ),
             IconButton(
