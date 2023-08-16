@@ -22,7 +22,7 @@ class CartScreen extends StatelessWidget {
   CustomButton customButton() {
     return CustomButton(
         onTap: () {
-          Get.to(CheckoutView(), transition: Transition.rightToLeft);
+          Get.to(() => const CheckoutView(), transition: Transition.rightToLeft);
         },
         text: "Checkout");
   }
@@ -49,7 +49,7 @@ class CartScreen extends StatelessWidget {
     return ListView.separated(
       separatorBuilder: (context, index) => const SizedBox(height: 20),
       itemCount: 2,
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
@@ -79,9 +79,15 @@ class CartScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      "Apple iMac 24 (2021)",
-                      style: Constant.ptSansBold.copyWith(fontSize: 18),
+                    Flexible(
+                      child: SizedBox(
+                        width: 175,
+                        child: Text(
+                          "Apple iMac 24 (2013)",
+                          style: Constant.ptSansBold.copyWith(fontSize: 18),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
                     Text(
                       "\$1299",
@@ -105,9 +111,12 @@ class CartScreen extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.clear, color: Constant.lightPurple),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.clear,
+                    color: Constant.lightPurple,
+                  ),
                 )
               ],
             ),
@@ -119,7 +128,7 @@ class CartScreen extends StatelessWidget {
 
   Padding price() {
     return Padding(
-      padding: EdgeInsets.only(bottom: 40),
+      padding: const EdgeInsets.only(bottom: 40),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

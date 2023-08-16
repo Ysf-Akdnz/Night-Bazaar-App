@@ -24,4 +24,20 @@ class Constant {
       GoogleFonts.ptSans(color: Constant.lightPurple);
   static TextStyle ptSansBold = GoogleFonts.ptSans(
       color: Constant.lightPurple, fontWeight: FontWeight.bold);
+  static TextStyle font1 = GoogleFonts.ptSans(
+      color: Constant.ligthAmber.withOpacity(0.75),
+      fontWeight: FontWeight.bold);
+  static TextStyle shipping = GoogleFonts.ptSans(color: Constant.whitePurple);
+
+  ///[BoxDecoration]
+  static BoxDecoration default1 = BoxDecoration(
+    color: Constant.darkGrey.withOpacity(0.9),
+    borderRadius: BorderRadius.circular(8),
+    boxShadow: [
+      BoxShadow(
+        color: Constant.lightPurple.withOpacity(0.5),
+        blurRadius: 5,
+      )
+    ],
+  );
 }

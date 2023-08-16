@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:prototip/components/custom_button.dart';
+import 'package:prototip/riverpod/checkout_riverpod.dart';
 
+import '../components/shipping_info.dart';
 import '../constant/constant.dart';
+import '../model/pament_model.dart';
+import 'assets.dart';
+
+final shippingInfo = ChangeNotifierProvider(((ref) => ShippingInformation()));
 
 class CheckoutView extends ConsumerWidget {
-  const CheckoutView({Key? key}) : super(key: key);
+  const CheckoutView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var watch = ref.watch(shippingInfo);
+    var read = ref.read(shippingInfo);
+
+    var user = watch.shipInfoModel.userInfo[0];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Constant.darkGrey,
@@ -20,7 +32,7 @@ class CheckoutView extends ConsumerWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
+          icon: const Icon(
             Icons.keyboard_arrow_right_rounded,
             color: Constant.lightPurple,
             size: 40,
@@ -28,24 +40,30 @@ class CheckoutView extends ConsumerWidget {
           color: Constant.black,
         ),
       ),
-      body: ListView(children: [
-        /*
-          Shopping information: Bir model olarak yap.
-          - Model dinamik olsun.
-          - Column içinde row, row içinde 2 tane text,
-            ayrıca parent olan column içinde tek bir model(dinamik olan bir yapı olacak; 
-            user name, user location, user phone number) olacak şekilde yap.
-        */
-
-        /*
-          Payment Method: Bir model olarak yap.
-          - Model dinamik olsun.
-          - Group radio buttonları kullan.
-          - Payment metodlarını seçerken yine model kullan.
-          - enums kullan.
-          - 
-        */
-      ]),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: ListView(children: [
+          ShippingInfo(read: read, user: user),
+          PaymentMethodModel(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Total",
+                  style: Constant.ptSansBold.copyWith(fontSize: 30),
+                ),
+                Text(
+                  "\$2598",
+                  style: Constant.ptSansBold.copyWith(fontSize: 40),
+                )
+              ],
+            ),
+          ),
+          CustomButton(onTap: () {}, text: "Confirm & Pay")
+        ]),
+      ),
     );
   }
 }

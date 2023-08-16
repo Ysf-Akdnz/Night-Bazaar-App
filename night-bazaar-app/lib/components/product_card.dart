@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() => Get.to(
-            ProductDetail(product: product),
+            () => ProductDetail(product: product),
             transition: Transition.rightToLeft,
           )),
       child: Container(

@@ -15,6 +15,9 @@ class _AssetsImages {
   final imP2PNG = 'assets/images/im_p2.png';
   final imW1PNG = 'assets/images/im_w1.png';
   final imW2PNG = 'assets/images/im_w2.png';
+  final master = 'assets/images/master.png';
+  final visa = 'assets/images/visa.png';
+  final bank = 'assets/images/bank.png';
 }
 
 class _AssetsIcons {
@@ -27,4 +30,7 @@ class _AssetsIcons {
   final icHomeIcon = 'assets/icons/home-icon.svg';
   final icCartIcon = 'assets/icons/cart-icon.svg';
   final icProfileIcon = 'assets/icons/profile-icon.svg';
+  final profile = 'assets/icons/profile.svg';
+  final location = 'assets/icons/location.svg';
+  final call = 'assets/icons/call.svg';
 }
