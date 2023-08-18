@@ -18,6 +18,7 @@ class _AssetsImages {
   final master = 'assets/images/master.png';
   final visa = 'assets/images/visa.png';
   final bank = 'assets/images/bank.png';
+  final logSign = 'assets/images/log_sign.png';
 }
 
 class _AssetsIcons {
@@ -33,4 +34,10 @@ class _AssetsIcons {
   final profile = 'assets/icons/profile.svg';
   final location = 'assets/icons/location.svg';
   final call = 'assets/icons/call.svg';
+  final email = 'assets/icons/email.svg';
+  final password = 'assets/icons/password.svg';
+  final male = 'assets/icons/male.svg';
+  final female = 'assets/icons/female.svg';
+  final facebook = 'assets/icons/facebook.svg';
+  final google = 'assets/icons/google.svg';
 }

@@ -17,7 +17,7 @@ class CustomBottomNavbar extends ConsumerWidget {
       height: 56,
       backgroundColor: Constant.darkGrey,
       animationDuration: const Duration(milliseconds: 300),
-      color: Constant.whiteGrey.withOpacity(0.5),
+      color: Constant.greyShade900.withOpacity(0.5),
       onTap: (newPageIndex) {
         // Yeni sayfaya geçildiğinde çalışan fonksiyon.
         if (newPageIndex != watch.currentIndex) {

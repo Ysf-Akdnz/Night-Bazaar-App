@@ -20,7 +20,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: Constant.whiteGrey.withOpacity(0.8),
+      backgroundColor: Constant.greyShade900.withOpacity(0.8),
       centerTitle: true,
       title: title(),
       // Sol taraftaki menü butonu.

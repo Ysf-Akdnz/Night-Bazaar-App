@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class Constant {
   /// [Colors]
   static Color black = const Color(0x00000000);
@@ -8,7 +9,7 @@ class Constant {
   static const Color grey = Colors.grey;
   static Color midgrey = const Color(0xFF424242).withOpacity(0.5);
   static const Color darkGrey = Color(0xFF121212);
-  static const Color whiteGrey = Color(0xFF212121);
+  static const Color greyShade900 = Color(0xFF212121);
   static const Color cyan = Color(0xff00b8d4);
   static Color nightAmber = const Color(0xFFFFA000);
   static Color darkAmber = const Color(0xFFFF6F00);
@@ -37,6 +38,16 @@ class Constant {
       BoxShadow(
         color: Constant.lightPurple.withOpacity(0.5),
         blurRadius: 5,
+      )
+    ],
+  );
+  static BoxDecoration loginSignup = BoxDecoration(
+    color: Colors.grey.shade900,
+    borderRadius: BorderRadius.circular(40),
+    boxShadow: [
+      BoxShadow(
+        color: Constant.lightPurple.withOpacity(0.4),
+        blurRadius: 15,
       )
     ],
   );

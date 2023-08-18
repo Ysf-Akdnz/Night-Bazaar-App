@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:prototip/components/custom_button.dart';
 import 'package:prototip/riverpod/checkout_riverpod.dart';
@@ -8,7 +7,6 @@ import 'package:prototip/riverpod/checkout_riverpod.dart';
 import '../components/shipping_info.dart';
 import '../constant/constant.dart';
 import '../model/pament_model.dart';
-import 'assets.dart';
 
 final shippingInfo = ChangeNotifierProvider(((ref) => ShippingInformation()));
 
@@ -44,7 +42,7 @@ class CheckoutView extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(children: [
           ShippingInfo(read: read, user: user),
-          PaymentMethodModel(),
+          const PaymentMethodModel(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: Row(
