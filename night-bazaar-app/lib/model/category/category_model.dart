@@ -1,4 +1,4 @@
-import 'package:prototip/model/category.dart';
+import 'package:prototip/model/category/category.dart';
 
 // Kategori modelini temsil eden sınıf.
 class CategoryModel {

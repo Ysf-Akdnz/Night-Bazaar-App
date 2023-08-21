@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:prototip/model/account/loginSignup/components/build_bottom_half_container.dart';
+import 'package:prototip/model/account/loginSignup/components/build_textfield.dart';
+import 'package:prototip/model/account/loginSignup/components/facebook_google.dart';
+import 'package:prototip/model/account/loginSignup/components/welcome_to.dart';
 
-import '../constant/constant.dart';
-import '../view/assets.dart';
+import '../../../constant/constant.dart';
+import '../../../view/assets.dart';
 
 // ignore: use_key_in_widget_constructors
 class LoginSignupModel extends StatefulWidget {
@@ -22,67 +25,17 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        welcomeTo(),
+        WelcomeTo(isSignupScreen: isSignupScreen),
         //Trick to add the shadow for the submit button
-        buildBottomHalfContainer(true),
+        BuildBottomHalfContainer(
+            isSignupScreen: isSignupScreen, showShadow: true),
         //Main Container for Login and Signup
         mainContainer(context),
         //Trick  to add the submit button
-        buildBottomHalfContainer(false),
-        facebookGoogle(context)
+        BuildBottomHalfContainer(
+            isSignupScreen: isSignupScreen, showShadow: false),
+        FacebookGoogle(isSignupScreen: isSignupScreen, context: context)
       ],
-    );
-  }
-
-  Positioned welcomeTo() {
-    return Positioned(
-      top: 0,
-      right: 0,
-      left: 0,
-      child: Container(
-        height: 250,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(Assets.images.logSign), fit: BoxFit.fill),
-            boxShadow: [BoxShadow(blurRadius: 75, color: Constant.nightAmber)]),
-        child: Container(
-          padding: const EdgeInsets.only(top: 40, left: 20),
-          color: Constant.nightAmber.withOpacity(.4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RichText(
-                text: TextSpan(
-                  text: "Welcome to",
-                  style: Constant.ptSansNormal.copyWith(
-                      fontSize: 25, color: Constant.white, letterSpacing: 1),
-                  children: [
-                    TextSpan(
-                      text: isSignupScreen ? " Night Bazaar," : " Back,",
-                      style: isSignupScreen
-                          ? GoogleFonts.caveat(
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              color: Constant.white)
-                          : GoogleFonts.ptSans(
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              color: Constant.white),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                isSignupScreen ? "Signup to Continue" : "Signin to Continue",
-                style: Constant.ptSansNormal
-                    .copyWith(color: Constant.whitePurple, fontSize: 17.5),
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -168,92 +121,21 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
     );
   }
 
-  Positioned facebookGoogle(BuildContext context) {
-    return Positioned(
-      top: MediaQuery.of(context).size.height * .7,
-      right: 0,
-      left: 0,
-      child: Column(
-        children: [
-          Text(
-            isSignupScreen ? "Or Signup with" : "Or Signin with",
-            style: Constant.ptSansBold
-                .copyWith(color: Constant.lightPurple.withOpacity(.8)),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 20, left: 20, top: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildTextButton(
-                    Assets.icons.facebook, "Facebook", Colors.blue.shade700),
-                buildTextButton(
-                    Assets.icons.google, "Google", Colors.red.shade600)
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  AnimatedPositioned buildBottomHalfContainer(bool showShadow) {
-    return AnimatedPositioned(
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.linear,
-      top: isSignupScreen ? 470 : 350,
-      left: 75,
-      right: 75,
-      child: Container(
-        width: 90,
-        height: 90,
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: Constant.greyShade900,
-          borderRadius: BorderRadius.circular(50),
-          boxShadow: [
-            if (showShadow)
-              BoxShadow(
-                  color: Constant.lightPurple.withOpacity(.4),
-                  spreadRadius: 1.5,
-                  blurRadius: 10,
-                  offset: const Offset(0, 1))
-          ],
-        ),
-        child: !showShadow
-            ? Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Constant.darkGrey, Constant.nightAmber],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight),
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Constant.nightAmber.withOpacity(.4),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: const Offset(2, 0))
-                  ],
-                ),
-                child: const Icon(
-                  Icons.arrow_forward_rounded,
-                  color: Constant.greyShade900,
-                  size: 30,
-                ),
-              )
-            : const Center(),
-      ),
-    );
-  }
-
   Container buildLoginSection() {
     return Container(
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextfield(Assets.icons.email, "info@gmail.com", true, false),
-          buildTextfield(Assets.icons.password, "***********", false, true),
+          BuildTextfield(
+              icon: Assets.icons.email,
+              hintText: "info@gmail.com",
+              isEmail: true,
+              isPassword: false),
+          BuildTextfield(
+              icon: Assets.icons.password,
+              hintText: "***********",
+              isEmail: false,
+              isPassword: true),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -298,9 +180,21 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
       margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
-          buildTextfield(Assets.icons.profile, "User Name", false, false),
-          buildTextfield(Assets.icons.email, "Email", true, false),
-          buildTextfield(Assets.icons.password, "Password", false, true),
+          BuildTextfield(
+              icon: Assets.icons.profile,
+              hintText: "User Name",
+              isEmail: false,
+              isPassword: false),
+          BuildTextfield(
+              icon: Assets.icons.email,
+              hintText: "Email",
+              isEmail: true,
+              isPassword: false),
+          BuildTextfield(
+              icon: Assets.icons.password,
+              hintText: "Password",
+              isEmail: false,
+              isPassword: true),
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 20),
             child: Row(
@@ -400,64 +294,6 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
           )
         ],
       ),
-    );
-  }
-
-  TextButton buildTextButton(
-      dynamic icon, String title, Color backgroundColor) {
-    return TextButton(
-      onPressed: () {},
-      style: TextButton.styleFrom(
-          foregroundColor: Constant.white,
-          side:
-              BorderSide(width: 1, color: Constant.lightPurple.withOpacity(.5)),
-          minimumSize: const Size(145, 40),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          backgroundColor: backgroundColor),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            icon,
-            width: 25,
-            color: Constant.white,
-          ),
-          const SizedBox(width: 5),
-          Text(title),
-        ],
-      ),
-    );
-  }
-
-  Widget buildTextfield(
-      dynamic icon, String hintText, bool isEmail, bool isPassword) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: TextField(
-          cursorColor: Constant.whitePurple,
-          decoration: InputDecoration(
-            prefixIcon: Container(
-              padding: const EdgeInsets.all(8.0),
-              margin: const EdgeInsets.only(left: 10),
-              child: SvgPicture.asset(icon,
-                  color: Constant.whitePurple.withOpacity(0.65), height: 20),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Constant.whitePurple.withOpacity(0.65)),
-              borderRadius: const BorderRadius.all(Radius.circular(35.0)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Constant.whitePurple.withOpacity(0.65)),
-              borderRadius: const BorderRadius.all(Radius.circular(35.0)),
-            ),
-            contentPadding: const EdgeInsets.all(10),
-            hintText: hintText,
-            hintStyle: Constant.ptSansNormal
-                .copyWith(color: Constant.whitePurple.withOpacity(0.5)),
-          )),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prototip/model/shipping_user.dart';
-import 'package:prototip/model/shipping_info_model.dart';
+import 'package:prototip/model/paymentShipping/shipping_user.dart';
+import 'package:prototip/model/paymentShipping/shipping_info_model.dart';
 
 class ShippingInformation extends ChangeNotifier {
   ShippingInformationModel shipInfoModel =

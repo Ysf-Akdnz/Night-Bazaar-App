@@ -6,7 +6,7 @@ import 'package:prototip/riverpod/checkout_riverpod.dart';
 
 import '../components/shipping_info.dart';
 import '../constant/constant.dart';
-import '../model/pament_model.dart';
+import '../model/paymentShipping/pament_model.dart';
 
 final shippingInfo = ChangeNotifierProvider(((ref) => ShippingInformation()));
 

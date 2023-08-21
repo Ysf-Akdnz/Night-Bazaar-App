@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/components/product_card.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/model/home_products_model.dart';
+import 'package:prototip/model/product/home_products_model.dart';
 import 'package:prototip/riverpod/home_riverpod.dart';
 
 // HomeRiverpod'ı kullanarak bir ChangeNotifierProvider oluşturulur.

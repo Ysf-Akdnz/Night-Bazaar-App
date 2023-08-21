@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prototip/model/payment.dart';
+import 'package:prototip/model/paymentShipping/payment.dart';
 
-import '../constant/constant.dart';
-import '../view/assets.dart';
+import '../../constant/constant.dart';
+import '../../view/assets.dart';
 
 class PaymentMethodModel extends StatefulWidget {
   const PaymentMethodModel({Key? key}) : super(key: key);

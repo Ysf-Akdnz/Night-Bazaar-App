@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/model/product.dart';
+import 'package:prototip/model/product/product.dart';
 import 'package:prototip/view/product_detail.dart';
 
 // ignore: must_be_immutable

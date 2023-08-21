@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/model/wishlist_products_model.dart';
+import 'package:prototip/model/product/wishlist_products_model.dart';
 import 'package:prototip/riverpod/wishlist_riverpod.dart';
 
 import '../components/product_card.dart';

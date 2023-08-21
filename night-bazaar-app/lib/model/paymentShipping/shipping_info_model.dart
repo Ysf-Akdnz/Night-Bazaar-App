@@ -1,4 +1,4 @@
-import 'package:prototip/model/shipping_user.dart';
+import 'package:prototip/model/paymentShipping/shipping_user.dart';
 
 class ShippingInformationModel {
   String title;

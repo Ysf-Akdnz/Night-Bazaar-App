@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constant/constant.dart';
-import '../model/shipping_user.dart';
+import '../model/paymentShipping/shipping_user.dart';
 import '../riverpod/checkout_riverpod.dart';
 import '../view/assets.dart';
 

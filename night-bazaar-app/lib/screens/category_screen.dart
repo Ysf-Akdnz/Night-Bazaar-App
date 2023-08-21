@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prototip/components/category_card.dart';
-import 'package:prototip/model/category_model.dart';
+import 'package:prototip/model/category/category_model.dart';
 import 'package:prototip/riverpod/category_riverpod.dart';
 
 // Kategori verisinin Riverpod sağlayıcısını oluşturur.

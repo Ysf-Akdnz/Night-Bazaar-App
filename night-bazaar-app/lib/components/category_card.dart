@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constant/constant.dart';
-import '../model/category.dart';
+import '../model/category/category.dart';
 
 // Kategori modelini temsil eden sınıf.
 // ignore: must_be_immutable

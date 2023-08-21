@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/components/custom_button.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/model/product.dart';
+import 'package:prototip/model/product/product.dart';
 
 // Ürünün detaylarını göstermek için kullanılan widget.
 // ignore: must_be_immutable

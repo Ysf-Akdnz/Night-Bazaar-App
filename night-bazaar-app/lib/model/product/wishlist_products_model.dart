@@ -1,4 +1,4 @@
-import 'package:prototip/model/product.dart';
+import 'package:prototip/model/product/product.dart';
 
 class WishlistProductsModel {
   String categoryTitle;

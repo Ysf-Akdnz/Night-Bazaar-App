@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prototip/model/wishlist_products_model.dart';
+import 'package:prototip/model/product/wishlist_products_model.dart';
 
-import '../model/product.dart';
+import '../model/product/product.dart';
 import '../view/assets.dart';
 
 // İstek listesi ekranını yöneten WishlistRiverpod sınıfı.

@@ -19,6 +19,7 @@ class _AssetsImages {
   final visa = 'assets/images/visa.png';
   final bank = 'assets/images/bank.png';
   final logSign = 'assets/images/log_sign.png';
+  final profile = 'assets/images/profile.png';
 }
 
 class _AssetsIcons {
@@ -40,4 +41,9 @@ class _AssetsIcons {
   final female = 'assets/icons/female.svg';
   final facebook = 'assets/icons/facebook.svg';
   final google = 'assets/icons/google.svg';
+  final myAccount = 'assets/icons/myAccount.svg';
+  final bell = 'assets/icons/bell.svg';
+  final settings = 'assets/icons/settings.svg';
+  final helpCenter = 'assets/icons/helpCenter.svg';
+  final logOut = 'assets/icons/logOut.svg';
 }

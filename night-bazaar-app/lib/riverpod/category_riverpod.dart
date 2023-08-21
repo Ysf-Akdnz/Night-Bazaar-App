@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prototip/model/category.dart';
-import '../model/category_model.dart';
+import 'package:prototip/model/category/category.dart';
+import '../model/category/category_model.dart';
 import '../view/assets.dart';
 
 // Kategori verisinin yönetildiği Riverpod sağlayıcısı.
