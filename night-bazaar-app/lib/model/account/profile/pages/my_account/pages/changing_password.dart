@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prototip/constant/constant.dart';
 
-class MyAccountPage extends StatefulWidget {
-  const MyAccountPage({super.key});
+class ChangingPassword extends StatefulWidget {
+  const ChangingPassword({super.key});
 
   @override
-  State<MyAccountPage> createState() => _MyAccountPageState();
+  State<ChangingPassword> createState() => _ChangingPasswordState();
 }
 
-class _MyAccountPageState extends State<MyAccountPage> {
+class _ChangingPasswordState extends State<ChangingPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
         backgroundColor: Constant.darkGrey,
         elevation: 0,
         title: Text(
-          "My Account",
+          "Changing Password",
           style: Constant.ptSansBold.copyWith(fontSize: 18),
         ),
         centerTitle: true,

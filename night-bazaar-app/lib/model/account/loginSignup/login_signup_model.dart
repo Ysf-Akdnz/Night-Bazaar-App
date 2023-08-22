@@ -127,11 +127,13 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
       child: Column(
         children: [
           BuildTextfield(
+              textInputType: TextInputType.emailAddress,
               icon: Assets.icons.email,
               hintText: "info@gmail.com",
               isEmail: true,
               isPassword: false),
           BuildTextfield(
+              textInputType: TextInputType.visiblePassword,
               icon: Assets.icons.password,
               hintText: "***********",
               isEmail: false,
@@ -181,16 +183,19 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
       child: Column(
         children: [
           BuildTextfield(
+              textInputType: TextInputType.name,
               icon: Assets.icons.profile,
               hintText: "User Name",
               isEmail: false,
               isPassword: false),
           BuildTextfield(
+              textInputType: TextInputType.emailAddress,
               icon: Assets.icons.email,
               hintText: "Email",
               isEmail: true,
               isPassword: false),
           BuildTextfield(
+              textInputType: TextInputType.visiblePassword,
               icon: Assets.icons.password,
               hintText: "Password",
               isEmail: false,

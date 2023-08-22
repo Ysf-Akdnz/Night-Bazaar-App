@@ -10,40 +10,26 @@ class ProfilePicture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25),
+      padding: const EdgeInsets.only(top: 20),
       child: SizedBox(
-        height: 140,
-        width: 140,
-        child: Stack(
-          fit: StackFit.expand,
+        height: 180,
+        width: 180,
+        child: Column(
           children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(Assets.images.profile),
-            ),
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: SizedBox(
-                height: 46,
-                width: 46,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Constant.whitePurple.withOpacity(0.8),
-                      border: Border.all(
-                          color: Constant.lightPurple.withOpacity(0.8),
-                          width: 2.0),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Icon(
-                      Icons.camera_alt_outlined,
-                      color: Constant.grey,
-                    ),
-                  ),
-                ),
+            SizedBox(
+              height: 135,
+              width: 135,
+              child: CircleAvatar(
+                backgroundImage: AssetImage(Assets.images.profile),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                "Yusuf Akdeniz",
+                style: Constant.ptSansBold.copyWith(fontSize: 25),
+              ),
+            )
           ],
         ),
       ),

@@ -41,9 +41,12 @@ class _AssetsIcons {
   final female = 'assets/icons/female.svg';
   final facebook = 'assets/icons/facebook.svg';
   final google = 'assets/icons/google.svg';
-  final myAccount = 'assets/icons/myAccount.svg';
   final bell = 'assets/icons/bell.svg';
   final settings = 'assets/icons/settings.svg';
   final helpCenter = 'assets/icons/helpCenter.svg';
+  final creditCard = 'assets/icons/creditCard.svg';
+  final myAccount = 'assets/icons/myAccount.svg';
+  final bookmark = 'assets/icons/bookmark.svg';
+  final orders = 'assets/icons/orders.svg';
   final logOut = 'assets/icons/logOut.svg';
 }
