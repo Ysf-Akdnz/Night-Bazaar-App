@@ -57,51 +57,56 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
                   MembershipBuildTextfield(
                       controller: _firstNameController,
                       textInputType: TextInputType.name,
-                      labelText: "Yusuf"),
+                      labelText: "Ad"),
                   MembershipBuildTextfield(
                       controller: _lastNameController,
                       textInputType: TextInputType.name,
-                      labelText: "Akdeniz"),
+                      labelText: "Soyad"),
                   MembershipBuildTextfield(
                       controller: _emailController,
                       textInputType: TextInputType.emailAddress,
-                      labelText: "admin@admin.com"),
+                      labelText: "E-mail"),
                   MembershipBuildTextfield(
                       controller: _phoneController,
                       textInputType: TextInputType.phone,
-                      labelText: "1234567890"),
+                      labelText: "Phone"),
                   MembershipBuildTextfield(
                       controller: _birthDateController,
                       textInputType: TextInputType.datetime,
-                      labelText: "01/01/1998"),
+                      labelText: "Birthday"),
                 ],
               ),
               const SizedBox(height: 16.0),
-              Container(
-                margin: EdgeInsets.only(top: 100),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: CustomButton(onTap: () {}, text: "Kaydet"),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Hesabımı Kapat',
-                  style: Constant.font1.copyWith(
-                      decoration: TextDecoration.underline,
-                      color: Constant.lightPurple),
-                ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: CustomButton(onTap: () {}, text: "Save"),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Close My Account',
+                      style: Constant.font1.copyWith(
+                          decoration: TextDecoration.underline,
+                          color: Constant.lightPurple),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -136,17 +141,18 @@ class MembershipBuildTextfield extends StatelessWidget {
           labelText: labelText,
           labelStyle: Constant.ptSansBold
               .copyWith(color: Constant.lightPurple.withOpacity(0.8)),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Constant.nightAmber.withOpacity(0.5),
+              color: Constant.whitePurple.withOpacity(0.5),
             ),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Constant.whitePurple.withOpacity(0.5)),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: Constant.nightAmber.withOpacity(.5),
+            ),
           ),
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+              const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         ),
       ),
     );
