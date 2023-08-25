@@ -55,7 +55,7 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
         ),
       ),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,11 +89,9 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: CustomButton(onTap: () {}, text: "Save"),
-                      ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: CustomButton(onTap: () {}, text: "Save"),
                     ),
                   ),
                   const SizedBox(height: 16.0),

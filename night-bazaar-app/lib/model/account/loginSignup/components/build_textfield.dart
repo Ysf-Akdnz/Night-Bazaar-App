@@ -8,21 +8,28 @@ class BuildTextfield extends StatelessWidget {
     required this.icon,
     required this.hintText,
     required this.isEmail,
-    required this.isPassword, required this.textInputType,
+    required this.isPassword,
+    required this.textInputType,
+    required this.controller,
+    required this.isPasswordVisibile,
   }) : super(key: key);
 
   final dynamic icon;
   final String hintText;
   final bool isEmail;
   final bool isPassword;
+  final bool isPasswordVisibile;
   final TextInputType textInputType;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextField(
+        controller: controller,
         keyboardType: textInputType,
+        obscureText: isPasswordVisibile,
         style: Constant.ptSansNormal.copyWith(color: Colors.white),
         cursorColor: Constant.whitePurple,
         decoration: InputDecoration(

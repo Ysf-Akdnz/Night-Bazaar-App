@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:prototip/model/account/profile/components/profile_menu_model.dart';
 import 'package:prototip/model/account/profile/components/profile_picture_model.dart';
@@ -6,13 +7,16 @@ import 'package:prototip/model/account/profile/pages/help_center.dart';
 import 'package:prototip/model/account/profile/pages/my_account/my_account.dart';
 import 'package:prototip/model/account/profile/pages/notification.dart';
 import 'package:prototip/model/account/profile/pages/settings/settings.dart';
+import 'package:prototip/screens/home_screen.dart';
+import 'package:prototip/screens/login-state/login_controller.dart';
 import 'package:prototip/view/assets.dart';
+import 'package:prototip/view/base_scaffold.dart';
 
-class Body extends StatelessWidget {
+class Body extends ConsumerWidget {
   const Body({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -49,7 +53,9 @@ class Body extends StatelessWidget {
           ),
           ProfileMenu(
             icon: Assets.icons.logOut,
-            press: () {},
+            press: () {
+              ref.read(loginControllerProvider.notifier).signOut();
+            },
             text: 'Log Out',
           ),
         ],

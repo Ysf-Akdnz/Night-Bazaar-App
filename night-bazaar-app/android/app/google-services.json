@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "614485704232",
+    "project_id": "staj-night-bazaar-app",
+    "storage_bucket": "staj-night-bazaar-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614485704232:android:0bb2ee3d9e5f96eb847f1d",
+        "android_client_info": {
+          "package_name": "com.example.prototip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614485704232-inmj3hhr25ndaoq5sc7032l1jbo64pm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYMIDCiIBz6pwhR93adci0P2RNPWEyQqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614485704232-inmj3hhr25ndaoq5sc7032l1jbo64pm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

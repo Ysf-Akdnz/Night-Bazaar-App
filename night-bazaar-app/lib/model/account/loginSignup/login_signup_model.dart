@@ -1,39 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:prototip/model/account/loginSignup/components/build_bottom_half_container.dart';
 import 'package:prototip/model/account/loginSignup/components/build_textfield.dart';
 import 'package:prototip/model/account/loginSignup/components/facebook_google.dart';
 import 'package:prototip/model/account/loginSignup/components/welcome_to.dart';
+import 'package:prototip/screens/home_screen.dart';
+import 'package:prototip/screens/login-state/login_controller.dart';
+import 'package:prototip/screens/login-state/login_state.dart';
+import 'package:prototip/view/base_scaffold.dart';
 
 import '../../../constant/constant.dart';
 import '../../../view/assets.dart';
 
 // ignore: use_key_in_widget_constructors
-class LoginSignupModel extends StatefulWidget {
+class LoginSignupModel extends ConsumerStatefulWidget {
   @override
-  State<LoginSignupModel> createState() => _LoginSignupModelState();
+  ConsumerState<LoginSignupModel> createState() => _LoginSignupModelState();
 }
 
-class _LoginSignupModelState extends State<LoginSignupModel> {
+class _LoginSignupModelState extends ConsumerState<LoginSignupModel> {
   bool isMale = true;
-
-  bool isSignupScreen = true;
-
+  bool isSignupScreen = false;
   bool isRememberMe = true;
 
+  final TextEditingController _loginEmailController = TextEditingController();
+  final TextEditingController _loginPasswordController =
+      TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _signupEmailController = TextEditingController();
+  final TextEditingController _signupPasswordController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
+    ref.listen<LoginState>(
+      loginControllerProvider,
+      ((previous, state) {
+        if (state is LoginStateError) {
+          ScaffoldMessenger.maybeOf(context)
+              ?.showSnackBar(SnackBar(content: Text(state.error)));
+        }
+      }),
+    );
     return Stack(
       children: [
         WelcomeTo(isSignupScreen: isSignupScreen),
         //Trick to add the shadow for the submit button
         BuildBottomHalfContainer(
-            isSignupScreen: isSignupScreen, showShadow: true),
+            onTap: () {}, isSignupScreen: isSignupScreen, showShadow: true),
         //Main Container for Login and Signup
         mainContainer(context),
         //Trick  to add the submit button
         BuildBottomHalfContainer(
-            isSignupScreen: isSignupScreen, showShadow: false),
+            onTap: () {
+              ref.read(loginControllerProvider.notifier).login(
+                  _loginEmailController.text, _loginPasswordController.text);
+            },
+            isSignupScreen: isSignupScreen,
+            showShadow: false),
         FacebookGoogle(isSignupScreen: isSignupScreen, context: context)
       ],
     );
@@ -127,13 +152,17 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
       child: Column(
         children: [
           BuildTextfield(
-              textInputType: TextInputType.emailAddress,
+              controller: _loginEmailController,
+              textInputType: TextInputType.text,
+              isPasswordVisibile: false,
               icon: Assets.icons.email,
               hintText: "info@gmail.com",
               isEmail: true,
               isPassword: false),
           BuildTextfield(
-              textInputType: TextInputType.visiblePassword,
+              controller: _loginPasswordController,
+              textInputType: TextInputType.text,
+              isPasswordVisibile: true,
               icon: Assets.icons.password,
               hintText: "***********",
               isEmail: false,
@@ -183,19 +212,25 @@ class _LoginSignupModelState extends State<LoginSignupModel> {
       child: Column(
         children: [
           BuildTextfield(
+              controller: _userNameController,
               textInputType: TextInputType.name,
+              isPasswordVisibile: false,
               icon: Assets.icons.profile,
               hintText: "User Name",
               isEmail: false,
               isPassword: false),
           BuildTextfield(
-              textInputType: TextInputType.emailAddress,
+              controller: _signupEmailController,
+              textInputType: TextInputType.text,
+              isPasswordVisibile: false,
               icon: Assets.icons.email,
               hintText: "Email",
               isEmail: true,
               isPassword: false),
           BuildTextfield(
-              textInputType: TextInputType.visiblePassword,
+              controller: _signupPasswordController,
+              textInputType: TextInputType.text,
+              isPasswordVisibile: true,
               icon: Assets.icons.password,
               hintText: "Password",
               isEmail: false,

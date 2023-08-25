@@ -75,7 +75,7 @@ class _ChangingPasswordState extends State<ChangingPassword> {
 }
 
 class ChangingPasswordTextfield extends StatefulWidget {
-  ChangingPasswordTextfield({
+  const ChangingPasswordTextfield({
     Key? key,
     required this.labelText,
     required this.controller,

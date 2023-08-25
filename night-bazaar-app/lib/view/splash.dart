@@ -16,7 +16,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     // Ekranı 2 saniye görüntüledikten sonra BaseScaffold ekranına geçiş yapar.
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, "/baseScaffold");
+      Navigator.pushReplacementNamed(context, "/authChecker");
     });
     super.initState();
   }
