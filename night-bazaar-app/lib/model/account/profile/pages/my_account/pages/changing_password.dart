@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prototip/components/custom_button.dart';
+import 'package:prototip/components/custom_buttons.dart';
 import 'package:prototip/constant/constant.dart';
 
 class ChangingPassword extends StatefulWidget {

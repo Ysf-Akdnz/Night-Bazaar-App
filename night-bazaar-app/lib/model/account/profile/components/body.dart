@@ -7,10 +7,9 @@ import 'package:prototip/model/account/profile/pages/help_center.dart';
 import 'package:prototip/model/account/profile/pages/my_account/my_account.dart';
 import 'package:prototip/model/account/profile/pages/notification.dart';
 import 'package:prototip/model/account/profile/pages/settings/settings.dart';
-import 'package:prototip/screens/home_screen.dart';
 import 'package:prototip/screens/login-state/login_controller.dart';
 import 'package:prototip/view/assets.dart';
-import 'package:prototip/view/base_scaffold.dart';
+import 'package:prototip/view/splash.dart';
 
 class Body extends ConsumerWidget {
   const Body({super.key});
@@ -55,6 +54,7 @@ class Body extends ConsumerWidget {
             icon: Assets.icons.logOut,
             press: () {
               ref.read(loginControllerProvider.notifier).signOut();
+              Get.to(() => const Splash());
             },
             text: 'Log Out',
           ),

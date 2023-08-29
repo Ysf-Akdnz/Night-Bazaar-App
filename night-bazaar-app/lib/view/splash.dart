@@ -14,7 +14,8 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    // Ekranı 2 saniye görüntüledikten sonra BaseScaffold ekranına geçiş yapar.
+    // Ekranı 2 saniye görüntüledikten sonra kimlik doğrulaması yapıldıktan
+    // sonra BaseScaffold ekranına geçiş yapar.
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, "/authChecker");
     });

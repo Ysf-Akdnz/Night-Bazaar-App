@@ -20,6 +20,8 @@ class _AssetsImages {
   final bank = 'assets/images/bank.png';
   final logSign = 'assets/images/log_sign.png';
   final profile = 'assets/images/profile.png';
+  final facebook = 'assets/images/facebook.png';
+  final google = 'assets/images/google.png';
 }
 
 class _AssetsIcons {

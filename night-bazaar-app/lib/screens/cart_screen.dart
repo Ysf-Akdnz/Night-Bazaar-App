@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prototip/components/custom_button.dart';
+import 'package:prototip/components/custom_buttons.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/view/assets.dart';
 import 'package:prototip/view/checkout_view.dart';

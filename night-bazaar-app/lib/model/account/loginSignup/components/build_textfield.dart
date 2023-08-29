@@ -25,7 +25,7 @@ class BuildTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 8, left: 15, right: 15),
       child: TextField(
         controller: controller,
         keyboardType: textInputType,
@@ -42,7 +42,7 @@ class BuildTextfield extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: Constant.whitePurple.withOpacity(0.65)),
-            borderRadius: const BorderRadius.all(Radius.circular(35.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide:

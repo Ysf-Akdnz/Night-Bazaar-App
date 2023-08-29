@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prototip/model/account/loginSignup/splash_access_model.dart';
 import 'package:prototip/model/account/profile/profile_model.dart';
 import 'package:prototip/providers/auth_providers.dart';
-import 'package:prototip/screens/home_screen.dart';
-
-import '../model/account/loginSignup/login_signup_model.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -15,32 +13,25 @@ class ProfileScreen extends ConsumerStatefulWidget {
 
 // Buraya tekrar gel.
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  bool isLogin = true;
-
-  void updateIsLogin() {
-    final authState = ref.read(authStateProvider);
-    return authState.when(
-        data: (user) {
-          if (user != null) {
-            isLogin = true;
-          } else {
-            isLogin = false;
-          }
-        },
-        error: (error, stackTrace) => const HomeScreen(),
-        loading: () => const SplashLoading());
-  }
+  bool _isLoggedIn = false;
 
   @override
   void initState() {
     super.initState();
-    updateIsLogin();
+    _checkLoggedInStatus();
+  }
+
+  Future<void> _checkLoggedInStatus() async {
+    final authState = await ref.read(authStateProvider.future);
+    setState(() {
+      _isLoggedIn = authState != null;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLogin ? const ProfileModel() : LoginSignupModel(),
+      body: _isLoggedIn ? const ProfileModel() : const SplashAccess(),
     );
   }
 }
