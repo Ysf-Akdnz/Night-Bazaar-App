@@ -6,7 +6,8 @@ import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/account/loginSignup/components/build_textfield.dart';
 import 'package:prototip/model/account/loginSignup/components/square_tile.dart';
 import 'package:prototip/model/account/loginSignup/singup_model.dart';
-import 'package:prototip/screens/login-state/login_controller.dart';
+import 'package:prototip/providers/auth_service.dart';
+import 'package:prototip/utils/locator.dart';
 import 'package:prototip/view/assets.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -17,15 +18,15 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   // text editing controllers
-  final _loginEmailController = TextEditingController();
-  final _loginPasswordController = TextEditingController();
+  final _tEmail = TextEditingController();
+  final _tPassword = TextEditingController();
 
-  // sign user in method
+  /*// sign user in method
   void signUserIn() {
     ref
         .read(loginControllerProvider.notifier)
         .login(_loginEmailController.text, _loginPasswordController.text);
-  }
+  }*/
 
   void registerNow() {
     Get.to(() => const SignupPage(), transition: Transition.downToUp);
@@ -136,7 +137,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Padding buildLoginButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: CustomButtonTwo(onTap: signUserIn, text: "LOGIN"),
+      child: CustomButtonTwo(
+          onTap: () {
+            locator
+                .get<AuthService>()
+                .login(email: _tEmail.text, password: _tPassword.text);
+          },
+          text: "LOGIN"),
     );
   }
 
@@ -145,7 +152,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       children: [
         // username textfield
         BuildTextfield(
-            controller: _loginEmailController,
+            controller: _tEmail,
             textInputType: TextInputType.text,
             isPasswordVisibile: false,
             icon: Assets.icons.email,
@@ -155,7 +162,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
         // password textfield
         BuildTextfield(
-            controller: _loginPasswordController,
+            controller: _tPassword,
             textInputType: TextInputType.text,
             isPasswordVisibile: true,
             icon: Assets.icons.password,

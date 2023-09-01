@@ -7,7 +7,8 @@ import 'package:prototip/model/account/profile/pages/help_center.dart';
 import 'package:prototip/model/account/profile/pages/my_account/my_account.dart';
 import 'package:prototip/model/account/profile/pages/notification.dart';
 import 'package:prototip/model/account/profile/pages/settings/settings.dart';
-import 'package:prototip/screens/login-state/login_controller.dart';
+import 'package:prototip/providers/auth_service.dart';
+import 'package:prototip/utils/locator.dart';
 import 'package:prototip/view/assets.dart';
 import 'package:prototip/view/splash.dart';
 
@@ -53,8 +54,8 @@ class Body extends ConsumerWidget {
           ProfileMenu(
             icon: Assets.icons.logOut,
             press: () {
-              ref.read(loginControllerProvider.notifier).signOut();
-              Get.to(() => const Splash());
+              locator.get<AuthService>().signOut();
+              Get.to(() => Splash());
             },
             text: 'Log Out',
           ),

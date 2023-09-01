@@ -6,7 +6,8 @@ import 'package:prototip/components/custom_buttons.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/account/loginSignup/components/build_textfield.dart';
 import 'package:prototip/model/account/loginSignup/components/square_tile.dart';
-import 'package:prototip/screens/login-state/login_controller.dart';
+import 'package:prototip/providers/auth_service.dart';
+import 'package:prototip/utils/locator.dart';
 import 'package:prototip/view/assets.dart';
 
 class SignupPage extends ConsumerStatefulWidget {
@@ -20,19 +21,16 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   bool isSignupScreen = false;
   bool isRememberMe = true;
   // text editing controllers
-  final _loginEmailController = TextEditingController();
-  final _loginPasswordController = TextEditingController();
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _signupEmailController = TextEditingController();
-  final TextEditingController _signupPasswordController =
-      TextEditingController();
+  final _tName = TextEditingController();
+  final _tEmail = TextEditingController();
+  final _tPassword = TextEditingController();
 
-  // sign user in method
+  /*// sign user in method
   void signUserIn() {
     ref
         .read(loginControllerProvider.notifier)
         .login(_loginEmailController.text, _loginPasswordController.text);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +130,13 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   Padding buildSignupButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: CustomButtonTwo(onTap: signUserIn, text: "RESGISTER NOW"),
+      child: CustomButtonTwo(
+          onTap: () => locator.get<AuthService>().signUp(
+                name: _tName.text,
+                email: _tEmail.text,
+                password: _tPassword.text,
+              ),
+          text: "RESGISTER NOW"),
     );
   }
 
@@ -141,7 +145,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
       children: [
         // username textfield
         BuildTextfield(
-            controller: _userNameController,
+            controller: _tName,
             textInputType: TextInputType.name,
             isPasswordVisibile: false,
             icon: Assets.icons.profile,
@@ -149,7 +153,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             isEmail: false,
             isPassword: false),
         BuildTextfield(
-            controller: _signupEmailController,
+            controller: _tEmail,
             textInputType: TextInputType.text,
             isPasswordVisibile: false,
             icon: Assets.icons.email,
@@ -157,90 +161,13 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             isEmail: true,
             isPassword: false),
         BuildTextfield(
-            controller: _signupPasswordController,
+            controller: _tPassword,
             textInputType: TextInputType.text,
             isPasswordVisibile: true,
             icon: Assets.icons.password,
             hintText: "Password",
             isEmail: false,
             isPassword: true),
-        Padding(
-          padding: const EdgeInsets.only(top: 10, left: 20),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isMale = true;
-                  });
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      width: 25,
-                      height: 25,
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                          color:
-                              isMale ? Constant.nightAmber : Colors.transparent,
-                          border: Border.all(
-                              width: 1, color: Constant.greyShade900),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: SvgPicture.asset(Assets.icons.male,
-                          color: isMale
-                              ? Constant.greyShade900
-                              : Constant.whitePurple.withOpacity(.65)),
-                    ),
-                    Text(
-                      "Male",
-                      style: Constant.ptSansBold.copyWith(
-                          color: isMale
-                              ? Constant.nightAmber
-                              : Constant.whitePurple.withOpacity(0.65)),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(width: 30),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isMale = false;
-                  });
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      width: 25,
-                      height: 25,
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                          color: !isMale
-                              ? Constant.nightAmber
-                              : Colors.transparent,
-                          border: Border.all(
-                              width: 1, color: Constant.greyShade900),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: SvgPicture.asset(
-                        Assets.icons.female,
-                        color: !isMale
-                            ? Constant.greyShade900
-                            : Constant.whitePurple.withOpacity(.65),
-                      ),
-                    ),
-                    Text(
-                      "Female",
-                      style: Constant.ptSansBold.copyWith(
-                          color: !isMale
-                              ? Constant.nightAmber
-                              : Constant.whitePurple.withOpacity(0.65)),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
         Container(
           width: 200,
           margin: const EdgeInsets.only(top: 20),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prototip/model/account/loginSignup/splash_access_model.dart';
 import 'package:prototip/model/account/profile/profile_model.dart';
-import 'package:prototip/providers/auth_providers.dart';
+import 'package:prototip/providers/auth_service.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -13,7 +13,8 @@ class ProfileScreen extends ConsumerStatefulWidget {
 
 // Buraya tekrar gel.
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  bool _isLoggedIn = false;
+  AuthService authService = AuthService();
+  Widget? profileWidget;
 
   @override
   void initState() {
@@ -22,29 +23,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   Future<void> _checkLoggedInStatus() async {
-    final authState = await ref.read(authStateProvider.future);
+    bool isLoggedIn = await authService.isUserLoggedIn();
     setState(() {
-      _isLoggedIn = authState != null;
+      if (isLoggedIn) {
+        profileWidget = const ProfileModel();
+      } else {
+        profileWidget = const SplashAccess();
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isLoggedIn ? const ProfileModel() : const SplashAccess(),
-    );
-  }
-}
-
-class SplashLoading extends StatelessWidget {
-  const SplashLoading({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
+      body: profileWidget,
     );
   }
 }
