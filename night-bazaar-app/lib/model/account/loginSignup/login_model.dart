@@ -21,13 +21,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final _tEmail = TextEditingController();
   final _tPassword = TextEditingController();
 
-  /*// sign user in method
-  void signUserIn() {
-    ref
-        .read(loginControllerProvider.notifier)
-        .login(_loginEmailController.text, _loginPasswordController.text);
-  }*/
-
   void registerNow() {
     Get.to(() => const SignupPage(), transition: Transition.downToUp);
   }

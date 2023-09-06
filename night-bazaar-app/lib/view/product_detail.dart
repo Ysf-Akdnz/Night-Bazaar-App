@@ -9,9 +9,24 @@ import 'package:prototip/model/product/product.dart';
 // Ürünün detaylarını göstermek için kullanılan widget.
 // ignore: must_be_immutable
 class ProductDetail extends ConsumerStatefulWidget {
-  Product product; // Ürün nesnesini alarak widget'ı oluşturur.
+  final String image;
+  final String title;
+  final int price;
+  final double star;
+  final String descTitle;
+  final String desc;
+  //List<Color> colors;
+  final bool isSaved;
   // ignore: use_key_in_widget_constructors
-  ProductDetail({required this.product});
+  ProductDetail(
+    this.image,
+    this.title,
+    this.price,
+    this.star,
+    this.descTitle,
+    this.desc,
+    this.isSaved,
+  );
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ProductDetailState();
 }
@@ -27,7 +42,7 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
             children: [
               image(), // Ürün renklerini gösteren widget.
               title(), // Ürün başlığını gösteren widget.
-              colors(), // Ürün renklerini gösteren widget.
+              //colors(), // Ürün renklerini gösteren widget.
               subDetail(), // Ürün detayının alt başlığını gösteren widget.
               price(), // Ürün fiyatını gösteren widget.
               button() // Sepete ekleme butonunu içeren widget.
@@ -57,7 +72,7 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
             "Total",
             style: _subTitle,
           ),
-          Text("\$${widget.product.price}",
+          Text("\$${widget.price}",
               style: GoogleFonts.ptSans(
                   fontSize: 25,
                   color: Constant.whitePurple,
@@ -71,7 +86,7 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
     return Padding(
       padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
       child: Text(
-        widget.product.title,
+        widget.title,
         style: GoogleFonts.ptSans(
             color: Constant.whitePurple,
             fontSize: 28,
@@ -116,38 +131,11 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.product.descTitle, style: _subTitle),
+          Text(widget.descTitle, style: _subTitle),
           const SizedBox(height: 8),
-          Text(widget.product.desc,
+          Text(widget.desc,
               style: GoogleFonts.ptSans(
                   color: Constant.whitePurple.withOpacity(0.5), fontSize: 17))
-        ],
-      ),
-    );
-  }
-
-  Padding colors() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Colors", style: _subTitle),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 15,
-            children: [
-              for (int i = 0; i < widget.product.colors.length; i++)
-                Container(
-                  width: 107,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: widget.product.colors[i],
-                  ),
-                ),
-            ],
-          )
         ],
       ),
     );
@@ -160,9 +148,9 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
         height: 380,
         width: double.maxFinite,
         child: Hero(
-            tag: widget.product.image,
-            child: Image.asset(
-              widget.product.image,
+            tag: widget.image,
+            child: Image.network(
+              widget.image,
               fit: BoxFit.cover,
             )),
       ),

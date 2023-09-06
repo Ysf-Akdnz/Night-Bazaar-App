@@ -30,7 +30,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple iMac 24 (2021)",
         price: 1299,
         star: 4.9,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -40,7 +40,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple iPhone 12 Series",
         price: 1199,
         star: 5.0,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -50,7 +50,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Tablet iMac 10",
         price: 799,
         star: 4.4,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -60,7 +60,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple Watch V1",
         price: 899,
         star: 4.7,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -74,7 +74,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple iMac 30 (2022)",
         price: 1199,
         star: 4.7,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -84,7 +84,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple iPhone 13 Series",
         price: 1299,
         star: 4.5,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -94,7 +94,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple Tablet V2",
         price: 959,
         star: 4.8,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",
@@ -104,7 +104,7 @@ class HomeRiverpod extends ChangeNotifier {
         title: "Apple Watch V2",
         price: 899,
         star: 4.9,
-        colors: [Colors.amber, Colors.cyan, Colors.green],
+        //colors: [Colors.amber, Colors.cyan, Colors.green],
         descTitle: "Get Apple TV+ free for a year",
         desc:
             "iPad Air. With a stunning 10.9-inch Liquid Retina display and True Tone for a more comfortable viewing experience.1 Powered by the new A14 Bionic chip with Neural Engine for 4K video editing, music creation, and next-level games - all with ease. Featuring fast, easy, and secure Touch ID, advanced cameras, USB-C, and support for versatile accessories, including Magic Keyboard and Apple Pencil (2nd generation)6.",

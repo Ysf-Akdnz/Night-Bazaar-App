@@ -44,7 +44,7 @@ class AuthService {
       final UserCredential userCredential = await firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
-        Get.to(() => LoginSplash());
+        Get.to(() => ConnectingSplash()); 
       }
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(msg: e.message!, toastLength: Toast.LENGTH_LONG);
@@ -53,7 +53,7 @@ class AuthService {
 
   Future<void> signOut() async {
     await firebaseAuth.signOut();
-    Get.to(() => SingOutSplash());
+    Get.to(() => DisconnectingSplash());
   }
 
   Future<void> _registerUser(

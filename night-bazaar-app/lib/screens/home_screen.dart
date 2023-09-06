@@ -1,12 +1,13 @@
 // Bu dosya, HomeScreen widget'ını içerir.
 // HomeScreen, kampanya resimlerini yatay bir şekilde kaydırılabilir bir liste halinde göstermek için kullanılır.
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/components/product_card.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/model/product/home_products_model.dart';
+import 'package:prototip/model/product/product.dart';
 import 'package:prototip/riverpod/home_riverpod.dart';
 
 // HomeRiverpod'ı kullanarak bir ChangeNotifierProvider oluşturulur.
@@ -19,6 +20,72 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  List<Product> _hotDealsProducts = [];
+  List<Product> _mostPopularProducts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setState(
+      () {
+        _getMostPopularProducts();
+        _getHotDealsProducts();
+      },
+    );
+  }
+
+  Future<void> _getHotDealsProducts() async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("products")
+          .doc("HtQHHe67DuZ4AbxIuABG")
+          .collection("hotdealsproducts")
+          .get();
+      setState(() {
+        _hotDealsProducts = querySnapshot.docs.map((col) {
+          final data = col.data();
+          return Product(
+            image: data["image"],
+            title: data["title"],
+            price: data["price"],
+            star: data["star"],
+            isSaved: data["isSaved"],
+            descTitle: data["descTitle"],
+            desc: data["desc"],
+          );
+        }).toList();
+      });
+    } catch (e) {
+      print('Firestore veri okuma hatası: $e');
+    }
+  }
+
+  Future<void> _getMostPopularProducts() async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("products")
+          .doc("JZCkqp73d0Z2wYnYx3jZ")
+          .collection("mostpopularproducts")
+          .get();
+      setState(() {
+        _mostPopularProducts = querySnapshot.docs.map((col) {
+          final data = col.data();
+          return Product(
+            image: data["image"],
+            title: data["title"],
+            price: data["price"],
+            star: data["star"],
+            isSaved: data["isSaved"],
+            descTitle: data["descTitle"],
+            desc: data["desc"],
+          );
+        }).toList();
+      });
+    } catch (e) {
+      print('Firestore veri okuma hatası: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // HomeRiverpod durumunu izlemek ve okumak için
@@ -30,52 +97,108 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return ListView(
       children: [
         Campaigns(screenHeight, read, watch),
-        homeProductCategories(read.hotDeals),
-        homeProductCategories(read.mostPopular),
-      ],
-    );
-  }
-
-  Widget homeProductCategories(HomeProductsModel model) {
-    return Column(
-      children: [
-        Padding(
-          padding:
-              const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                model.categoryTitle,
-                style: GoogleFonts.ptSans(
-                    color: Constant.whitePurple, fontWeight: FontWeight.w600),
-              ),
-              Text(
-                "See All",
-                style: GoogleFonts.ptSans(
-                  color: Constant.whitePurple.withOpacity(0.38),
-                  decoration: TextDecoration.underline,
-                ),
-              )
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
-            height: 270,
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const SizedBox(width: 10),
-              itemCount: model.products.length,
+        Column(
+          children: [
+            Padding(
               padding: const EdgeInsets.only(
-                  left: 10, right: 10, top: 7.5, bottom: 7.5),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: ((context, index) {
-                return ProductCard(product: model.products[index]);
-              }),
+                  left: 15, top: 15, right: 15, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Hot Deals",
+                    style: GoogleFonts.ptSans(
+                        color: Constant.whitePurple,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "See All",
+                    style: GoogleFonts.ptSans(
+                      color: Constant.whitePurple.withOpacity(0.38),
+                      decoration: TextDecoration.underline,
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        )
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                height: 270,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
+                  itemCount: _hotDealsProducts.length,
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 10, top: 7.5, bottom: 7.5),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: ((context, index) {
+                    final hotDealsproducts = _hotDealsProducts[index];
+                    return ProductCard(
+                        image: hotDealsproducts.image,
+                        title: hotDealsproducts.title,
+                        price: hotDealsproducts.price,
+                        star: hotDealsproducts.star,
+                        descTitle: hotDealsproducts.descTitle,
+                        desc: hotDealsproducts.desc,
+                        isSaved: hotDealsproducts.isSaved);
+                  }),
+                ),
+              ),
+            )
+          ],
+        ),
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15, top: 15, right: 15, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Most Popular",
+                    style: GoogleFonts.ptSans(
+                        color: Constant.whitePurple,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "See All",
+                    style: GoogleFonts.ptSans(
+                      color: Constant.whitePurple.withOpacity(0.38),
+                      decoration: TextDecoration.underline,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                height: 270,
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
+                  itemCount: _mostPopularProducts.length,
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 10, top: 7.5, bottom: 7.5),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: ((context, index) {
+                    final mostPopularproduct = _mostPopularProducts[index];
+                    return ProductCard(
+                        image: mostPopularproduct.image,
+                        title: mostPopularproduct.title,
+                        price: mostPopularproduct.price,
+                        star: mostPopularproduct.star,
+                        descTitle: mostPopularproduct.descTitle,
+                        desc: mostPopularproduct.desc,
+                        isSaved: mostPopularproduct.isSaved);
+                  }),
+                ),
+              ),
+            )
+          ],
+        ),
       ],
     );
   }

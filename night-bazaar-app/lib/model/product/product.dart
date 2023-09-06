@@ -7,7 +7,7 @@ class Product {
   double star;
   String descTitle;
   String desc;
-  List<Color> colors;
+  //List<Color> colors;
   bool isSaved;
 
   Product({
@@ -18,6 +18,7 @@ class Product {
     required this.isSaved,
     required this.descTitle,
     required this.desc,
-    required this.colors,
+    //required this.colors,
   });
 }
+

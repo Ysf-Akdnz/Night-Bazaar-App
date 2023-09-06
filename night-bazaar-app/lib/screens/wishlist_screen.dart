@@ -5,7 +5,6 @@ import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/product/wishlist_products_model.dart';
 import 'package:prototip/riverpod/wishlist_riverpod.dart';
 
-import '../components/product_card.dart';
 
 final wishlistRiverpod = ChangeNotifierProvider(((ref) => WishlistRiverpod()));
 
@@ -59,7 +58,7 @@ class _WishlistScreenState extends ConsumerState<WishlistScreen> {
                     left: 10, right: 10, top: 7.5, bottom: 7.5),
                 scrollDirection: Axis.vertical,
                 itemBuilder: ((context, index) {
-                  return ProductCard(product: model.products[index]);
+                  return widget;
                 }),
               ),
             ),
