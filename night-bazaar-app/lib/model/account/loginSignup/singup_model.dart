@@ -24,13 +24,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   final _tEmail = TextEditingController();
   final _tPassword = TextEditingController();
 
-  /*// sign user in method
-  void signUserIn() {
-    ref
-        .read(loginControllerProvider.notifier)
-        .login(_loginEmailController.text, _loginPasswordController.text);
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -70,7 +70,7 @@ class _LoginSplashState extends State<LoginSplash> {
     // Ekranı 2 saniye görüntüledikten sonra kimlik doğrulaması yapıldıktan
     // sonra BaseScaffold ekranına geçiş yapar.
     Future.delayed(const Duration(seconds: 2), () {
-      Get.to(() => LoginPage());
+      Get.to(() => const LoginPage());
     });
     super.initState();
   }
@@ -140,9 +140,9 @@ class _ConnectingSplashState extends State<ConnectingSplash> {
                   fontSize: 20,
                   color: Constant.ligthAmber),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100),
-              child: const CircularProgressIndicator(
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100),
+              child: CircularProgressIndicator(
                 color: Constant.ligthAmber,
               ),
             ),
@@ -187,9 +187,9 @@ class _DisconnectingSplashState extends State<DisconnectingSplash> {
                   fontSize: 20,
                   color: Constant.ligthAmber),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: const CircularProgressIndicator(
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: CircularProgressIndicator(
                 color: Constant.ligthAmber,
               ),
             ),

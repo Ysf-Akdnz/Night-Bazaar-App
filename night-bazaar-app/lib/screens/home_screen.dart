@@ -38,13 +38,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     try {
       final querySnapshot = await FirebaseFirestore.instance
           .collection("products")
-          .doc("HtQHHe67DuZ4AbxIuABG")
+          .doc("JZCkqp73d0Z2wYnYx3jZ")
           .collection("hotdealsproducts")
           .get();
       setState(() {
         _hotDealsProducts = querySnapshot.docs.map((col) {
           final data = col.data();
           return Product(
+            productId: data["productId"],
             image: data["image"],
             title: data["title"],
             price: data["price"],
@@ -56,6 +57,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         }).toList();
       });
     } catch (e) {
+      // ignore: avoid_print
       print('Firestore veri okuma hatası: $e');
     }
   }
@@ -71,6 +73,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         _mostPopularProducts = querySnapshot.docs.map((col) {
           final data = col.data();
           return Product(
+            productId: data["productId"],
             image: data["image"],
             title: data["title"],
             price: data["price"],
@@ -82,6 +85,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         }).toList();
       });
     } catch (e) {
+      // ignore: avoid_print
       print('Firestore veri okuma hatası: $e');
     }
   }
@@ -97,108 +101,124 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return ListView(
       children: [
         Campaigns(screenHeight, read, watch),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15, top: 15, right: 15, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Hot Deals",
-                    style: GoogleFonts.ptSans(
-                        color: Constant.whitePurple,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "See All",
-                    style: GoogleFonts.ptSans(
-                      color: Constant.whitePurple.withOpacity(0.38),
-                      decoration: TextDecoration.underline,
-                    ),
-                  )
-                ],
+        hotDealsProducts(),
+        mostPopularProducts(),
+      ],
+    );
+  }
+
+  Column mostPopularProducts() {
+    return Column(
+      children: [
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Most Popular",
+                style: GoogleFonts.ptSans(
+                    color: Constant.whitePurple, fontWeight: FontWeight.w600),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: SizedBox(
-                height: 270,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                  itemCount: _hotDealsProducts.length,
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 7.5, bottom: 7.5),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: ((context, index) {
-                    final hotDealsproducts = _hotDealsProducts[index];
-                    return ProductCard(
-                        image: hotDealsproducts.image,
-                        title: hotDealsproducts.title,
-                        price: hotDealsproducts.price,
-                        star: hotDealsproducts.star,
-                        descTitle: hotDealsproducts.descTitle,
-                        desc: hotDealsproducts.desc,
-                        isSaved: hotDealsproducts.isSaved);
-                  }),
+              Text(
+                "See All",
+                style: GoogleFonts.ptSans(
+                  color: Constant.whitePurple.withOpacity(0.38),
+                  decoration: TextDecoration.underline,
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 15, top: 15, right: 15, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Most Popular",
-                    style: GoogleFonts.ptSans(
-                        color: Constant.whitePurple,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "See All",
-                    style: GoogleFonts.ptSans(
-                      color: Constant.whitePurple.withOpacity(0.38),
-                      decoration: TextDecoration.underline,
-                    ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: SizedBox(
+            height: 270,
+            child: _mostPopularProducts.isEmpty
+                ? const Center(
+                    child: CircularProgressIndicator(),
                   )
-                ],
+                : ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 10),
+                    itemCount: _mostPopularProducts.length,
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 7.5, bottom: 7.5),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: ((context, index) {
+                      final mostPopularproduct = _mostPopularProducts[index];
+                      return ProductCard(
+                          productId: mostPopularproduct.productId,
+                          image: mostPopularproduct.image,
+                          title: mostPopularproduct.title,
+                          price: mostPopularproduct.price,
+                          star: mostPopularproduct.star,
+                          descTitle: mostPopularproduct.descTitle,
+                          desc: mostPopularproduct.desc,
+                          isSaved: mostPopularproduct.isSaved);
+                    }),
+                  ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Column hotDealsProducts() {
+    return Column(
+      children: [
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Hot Deals",
+                style: GoogleFonts.ptSans(
+                    color: Constant.whitePurple, fontWeight: FontWeight.w600),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: SizedBox(
-                height: 270,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
-                  itemCount: _mostPopularProducts.length,
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 7.5, bottom: 7.5),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: ((context, index) {
-                    final mostPopularproduct = _mostPopularProducts[index];
-                    return ProductCard(
-                        image: mostPopularproduct.image,
-                        title: mostPopularproduct.title,
-                        price: mostPopularproduct.price,
-                        star: mostPopularproduct.star,
-                        descTitle: mostPopularproduct.descTitle,
-                        desc: mostPopularproduct.desc,
-                        isSaved: mostPopularproduct.isSaved);
-                  }),
+              Text(
+                "See All",
+                style: GoogleFonts.ptSans(
+                  color: Constant.whitePurple.withOpacity(0.38),
+                  decoration: TextDecoration.underline,
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: SizedBox(
+            height: 270,
+            child: _hotDealsProducts.isEmpty
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 10),
+                    itemCount: _hotDealsProducts.length,
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 7.5, bottom: 7.5),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: ((context, index) {
+                      final hotDealsproducts = _hotDealsProducts[index];
+                      return ProductCard(
+                          productId: hotDealsproducts.productId,
+                          image: hotDealsproducts.image,
+                          title: hotDealsproducts.title,
+                          price: hotDealsproducts.price,
+                          star: hotDealsproducts.star,
+                          descTitle: hotDealsproducts.descTitle,
+                          desc: hotDealsproducts.desc,
+                          isSaved: hotDealsproducts.isSaved);
+                    }),
+                  ),
+          ),
+        )
       ],
     );
   }

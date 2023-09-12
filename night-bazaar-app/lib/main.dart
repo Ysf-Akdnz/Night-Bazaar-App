@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:prototip/model/account/loginSignup/login_model.dart';
 import 'package:prototip/utils/locator.dart';
-import 'package:prototip/view/base_scaffold.dart';
 import 'package:prototip/view/splash.dart';
 
 void main() async {
@@ -30,9 +28,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
-              return Splash();
+              return const Splash();
             } else {
-              return LoginSplash();
+              return const LoginSplash();
             }
           })),
     );

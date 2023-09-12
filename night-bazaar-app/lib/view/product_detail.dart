@@ -5,20 +5,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/components/custom_buttons.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/product/product.dart';
+import 'package:prototip/providers/wishlist_service.dart';
 
 // Ürünün detaylarını göstermek için kullanılan widget.
 // ignore: must_be_immutable
 class ProductDetail extends ConsumerStatefulWidget {
+  final String productId;
   final String image;
   final String title;
   final int price;
-  final double star;
+  final String star;
   final String descTitle;
   final String desc;
   //List<Color> colors;
   final bool isSaved;
   // ignore: use_key_in_widget_constructors
-  ProductDetail(
+  const ProductDetail(
+    this.productId,
     this.image,
     this.title,
     this.price,
@@ -32,6 +35,22 @@ class ProductDetail extends ConsumerStatefulWidget {
 }
 
 class _ProductDetailState extends ConsumerState<ProductDetail> {
+  WishlistService wishlistService = WishlistService();
+  bool isSaved = false; // Yeni bool değişkeni tanımlanıyor
+  
+
+  Future<void> checkIfProductIsSaved() async {
+    final userUid = wishlistService.getCurrentUserUid();
+    if (userUid != null) {
+      final wishlistSnapshot = await wishlistService.getWishlist().first;
+      final List<String> productIds =
+          wishlistSnapshot.docs.map((doc) => doc.id).toList();
+      setState(() {
+        isSaved = productIds.contains(widget.productId);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +64,8 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
               //colors(), // Ürün renklerini gösteren widget.
               subDetail(), // Ürün detayının alt başlığını gösteren widget.
               price(), // Ürün fiyatını gösteren widget.
-              button() // Sepete ekleme butonunu içeren widget.
+              button(), // Sepete ekleme butonunu içeren widget.
+              const SizedBox(height: 15),
             ],
           ),
           appBar() // Ürün renklerini gösteren widget.
@@ -104,21 +124,48 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
-              onPressed: () => Get.back(),
+              onPressed: () => Get.back(closeOverlays: true),
               icon: const Icon(
                 Icons.keyboard_arrow_right_rounded,
                 color: Constant.whitePurple,
                 size: 40,
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.bookmark_border_rounded,
-                color: Constant.whitePurple,
-                size: 25,
-              ),
-            )
+            GestureDetector(
+              onTap: () {
+                if (isSaved) {
+                  setState(() {
+                    isSaved = !isSaved;
+                  });
+                  wishlistService.removeFromWishlist(widget.productId);
+                } else {
+                  setState(() {
+                    isSaved = !isSaved;
+                  });
+                  // Ürün verilerini kullanarak Product örneği oluşturun
+                  Product productToAdd = Product(
+                    productId: widget.productId,
+                    image: widget.image,
+                    title: widget.title,
+                    price: widget.price,
+                    star: widget.star,
+                    isSaved: isSaved,
+                    descTitle: widget.descTitle,
+                    desc: widget.desc,
+                  );
+                  wishlistService.addToWishlist(productToAdd);
+                }
+              },
+              child: isSaved
+                  ? const Icon(
+                      Icons.bookmark,
+                      color: Constant.ligthAmber,
+                    )
+                  : const Icon(
+                      Icons.bookmark_border_rounded,
+                      color: Constant.lightPurple,
+                    ),
+            ),
           ],
         ),
       ),

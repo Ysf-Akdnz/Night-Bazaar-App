@@ -55,7 +55,7 @@ class Body extends ConsumerWidget {
             icon: Assets.icons.logOut,
             press: () {
               locator.get<AuthService>().signOut();
-              Get.to(() => Splash());
+              Get.to(() => const Splash());
             },
             text: 'Log Out',
           ),

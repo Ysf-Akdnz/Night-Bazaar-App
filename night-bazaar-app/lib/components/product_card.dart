@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/product/product.dart';
+import 'package:prototip/providers/wishlist_service.dart';
 import 'package:prototip/view/product_detail.dart';
 
 // ignore: must_be_immutable
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerStatefulWidget {
+  final String productId;
   final String image;
   final String title;
   final int price;
-  final double star;
+  final String star;
   final String descTitle;
   final String desc;
   //List<Color> colors;
   final bool isSaved;
 
-  ProductCard({
+  const ProductCard({
     super.key,
     required this.image,
     required this.title,
@@ -25,20 +28,48 @@ class ProductCard extends StatelessWidget {
     required this.descTitle,
     required this.desc,
     required this.isSaved,
+    required this.productId,
   });
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends ConsumerState<ProductCard> {
+  WishlistService wishlistService = WishlistService();
+  bool isSaved = false; // Yeni bool değişkeni tanımlanıyor
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfProductIsSaved();
+  }
+
+  Future<void> checkIfProductIsSaved() async {
+    final userUid = wishlistService.getCurrentUserUid();
+    if (userUid != null) {
+      final wishlistSnapshot = await wishlistService.getWishlist().first;
+      final List<String> productIds =
+          wishlistSnapshot.docs.map((doc) => doc.id).toList();
+      setState(() {
+        isSaved = productIds.contains(widget.productId);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() => Get.to(
             () => ProductDetail(
-              image,
-              title,
-              price,
-              star,
-              descTitle,
-              desc,
-              isSaved,
+              widget.productId,
+              widget.image,
+              widget.title,
+              widget.price,
+              widget.star,
+              widget.descTitle,
+              widget.desc,
+              isSaved, // Düzeltildi: isSaved kullanılıyor
             ),
             transition: Transition.rightToLeft,
           )),
@@ -61,10 +92,17 @@ class ProductCard extends StatelessWidget {
                 tag: "image",
                 child: Padding(
                   padding: const EdgeInsets.only(top: 4),
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
-                  ),
+                  child: widget.image.isEmpty
+                      ? const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(50),
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : Image.network(
+                          widget.image,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               Padding(
@@ -73,20 +111,46 @@ class ProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(title,
+                      child: Text(widget.title,
                           style: GoogleFonts.ptSans(
                             color: Constant.lightPurple,
                           )),
                     ),
-                    isSaved
-                        ? const Icon(
-                            Icons.bookmark,
-                            color: Constant.ligthAmber,
-                          )
-                        : const Icon(
-                            Icons.bookmark_border_rounded,
-                            color: Constant.lightPurple,
-                          )
+                    GestureDetector(
+                      onTap: () {
+                        if (isSaved) {
+                          setState(() {
+                            isSaved = !isSaved;
+                          });
+                          wishlistService.removeFromWishlist(widget.productId);
+                        } else {
+                          setState(() {
+                            isSaved = !isSaved;
+                          });
+                          // Ürün verilerini kullanarak Product örneği oluşturun
+                          Product productToAdd = Product(
+                            productId: widget.productId,
+                            image: widget.image,
+                            title: widget.title,
+                            price: widget.price,
+                            star: widget.star,
+                            isSaved: isSaved,
+                            descTitle: widget.descTitle,
+                            desc: widget.desc,
+                          );
+                          wishlistService.addToWishlist(productToAdd);
+                        }
+                      },
+                      child: isSaved
+                          ? const Icon(
+                              Icons.bookmark,
+                              color: Constant.ligthAmber,
+                            )
+                          : const Icon(
+                              Icons.bookmark_border_rounded,
+                              color: Constant.lightPurple,
+                            ),
+                    ),
                   ],
                 ),
               ),
@@ -94,7 +158,7 @@ class ProductCard extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, top: 8, bottom: 5),
                 child: Text(
-                  "\$${price}",
+                  "\$${widget.price}",
                   style: GoogleFonts.ptSans(
                       color: Constant.lightPurple,
                       fontWeight: FontWeight.bold,
@@ -110,7 +174,7 @@ class ProductCard extends StatelessWidget {
                       color: Constant.amber,
                     ),
                     Text(
-                      "${star}",
+                      widget.star,
                       style: GoogleFonts.ptSans(
                           color: Constant.lightPurple,
                           fontWeight: FontWeight.bold,
