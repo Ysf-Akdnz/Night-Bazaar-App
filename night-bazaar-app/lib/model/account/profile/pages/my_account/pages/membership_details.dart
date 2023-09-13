@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prototip/components/custom_buttons.dart';
 import 'package:prototip/constant/constant.dart';
+import 'package:prototip/providers/auth_service.dart';
 
 class MyMembershipDetails extends StatefulWidget {
   const MyMembershipDetails({super.key});
@@ -11,16 +12,13 @@ class MyMembershipDetails extends StatefulWidget {
 }
 
 class _MyMembershipDetailsState extends State<MyMembershipDetails> {
-  final TextEditingController _firstNameController =
-      TextEditingController(text: "Yusuf");
-  final TextEditingController _lastNameController =
-      TextEditingController(text: "Akdeniz");
-  final TextEditingController _emailController =
-      TextEditingController(text: "admin@admin.com");
-  final TextEditingController _phoneController =
-      TextEditingController(text: "1234567890");
-  final TextEditingController _birthDateController =
-      TextEditingController(text: "01/01/1998");
+  Map<String, dynamic>? userProfile;
+
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _birthDateController = TextEditingController();
 
   @override
   void dispose() {
@@ -30,6 +28,47 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
     _phoneController.dispose();
     _birthDateController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserProfile();
+  }
+
+  Future<void> _loadUserProfile() async {
+    final profile = await AuthService().getUserProfile();
+    setState(() {
+      userProfile = profile;
+      // Firestore ve Authentication'dan gelen bilgileri burada kullanabilirsiniz
+      _firstNameController.text = userProfile?['name'] ?? '';
+      _lastNameController.text = userProfile?['last_name'] ?? '';
+      _emailController.text = userProfile?['email'] ?? '';
+      _phoneController.text = userProfile?['phone'] ?? '';
+      _birthDateController.text = userProfile?['birtday'] ?? '';
+    });
+  }
+
+  Future<void> updateUserProfile() async {
+    // Kullanıcının güncel bilgilerini burada alın
+    final updatedProfile = {
+      "name": _firstNameController.text,
+      "last_name": _lastNameController.text,
+      "email": _emailController.text,
+      "phone": _phoneController.text,
+      "birtday": _birthDateController.text,
+    };
+
+    await AuthService().updateUserProfile(updatedProfile);
+
+    // Güncelleme işlemi tamamlandığında kullanıcıya
+    // bildirim veya geri dönüş sağlayabilirsiniz.
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Profil bilgileriniz güncellendi"),
+      ),
+    );
   }
 
   @override
@@ -91,12 +130,56 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: CustomButton(onTap: () {}, text: "Save"),
+                      child: CustomButton(
+                          onTap: () => updateUserProfile(), text: "Save"),
                     ),
                   ),
                   const SizedBox(height: 16.0),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      // Hesabı silme işlemi için onay iletişim kutusunu göster
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Dikkat!!!"),
+                            content: Text(
+                                "Hesabı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  // Onaylandı
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: Text("Evet"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // İptal edildi
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text("Hayır"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+
+                      // Kullanıcı onay verdiyse hesabı sil
+                      if (confirmed == true) {
+                        await AuthService().deleteAccount();
+
+                        // Hesap başarıyla silindiyse kullanıcıyı çıkış yapmış olarak işaretleyin
+                        await AuthService().signOut();
+
+                        // Kullanıcıya bir bildirim veya yönlendirme gösterin
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Hesabınız başarıyla silindi."),
+                          ),
+                        );
+                      }
+                    },
                     child: Text(
                       'Close My Account',
                       style: Constant.font1.copyWith(

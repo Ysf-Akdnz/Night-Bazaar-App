@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -117,28 +118,52 @@ class _ProductCardState extends ConsumerState<ProductCard> {
                           )),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        if (isSaved) {
-                          setState(() {
-                            isSaved = !isSaved;
-                          });
-                          wishlistService.removeFromWishlist(widget.productId);
+                      onTap: () async {
+                        final user = FirebaseAuth.instance.currentUser;
+                        if (user != null) {
+                          // Kullanıcı oturum açmış, favorilere ekleme veya kaldırma işlemini yapabilirsiniz
+                          if (isSaved) {
+                            setState(() {
+                              isSaved = !isSaved;
+                            });
+                            wishlistService
+                                .removeFromWishlist(widget.productId);
+                          } else {
+                            setState(() {
+                              isSaved = !isSaved;
+                            });
+                            // Ürün verilerini kullanarak Product örneği oluşturun
+                            Product productToAdd = Product(
+                              productId: widget.productId,
+                              image: widget.image,
+                              title: widget.title,
+                              price: widget.price,
+                              star: widget.star,
+                              isSaved: isSaved,
+                              descTitle: widget.descTitle,
+                              desc: widget.desc,
+                            );
+                            wishlistService.addToWishlist(productToAdd);
+                          }
                         } else {
-                          setState(() {
-                            isSaved = !isSaved;
-                          });
-                          // Ürün verilerini kullanarak Product örneği oluşturun
-                          Product productToAdd = Product(
-                            productId: widget.productId,
-                            image: widget.image,
-                            title: widget.title,
-                            price: widget.price,
-                            star: widget.star,
-                            isSaved: isSaved,
-                            descTitle: widget.descTitle,
-                            desc: widget.desc,
-                          );
-                          wishlistService.addToWishlist(productToAdd);
+                          // Kullanıcı oturum açmamış, uyarı mesajı gösterin
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Oturum Açınız"),
+                                  content: Text(
+                                      "Favorilere eklemek için lütfen oturum açınız."),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("Kapat"),
+                                    ),
+                                  ],
+                                );
+                              });
                         }
                       },
                       child: isSaved

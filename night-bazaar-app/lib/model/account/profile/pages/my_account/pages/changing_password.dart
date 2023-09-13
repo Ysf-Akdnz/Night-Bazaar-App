@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prototip/components/custom_buttons.dart';
@@ -11,22 +12,21 @@ class ChangingPassword extends StatefulWidget {
 }
 
 class _ChangingPasswordState extends State<ChangingPassword> {
-  final TextEditingController _currentPasswordController =
-      TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _newPasswordRepeatController =
-      TextEditingController();
+  final TextEditingController _tCurrentPassword = TextEditingController();
+  final TextEditingController _tNewPassword = TextEditingController();
+  final TextEditingController _tPasswordConfirmation = TextEditingController();
   @override
   void dispose() {
-    _currentPasswordController.dispose();
-    _newPasswordController.dispose();
-    _newPasswordRepeatController.dispose();
+    _tCurrentPassword.dispose();
+    _tNewPassword.dispose();
+    _tPasswordConfirmation.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Constant.darkGrey,
         elevation: 0,
@@ -51,20 +51,63 @@ class _ChangingPasswordState extends State<ChangingPassword> {
           child: Column(
             children: [
               ChangingPasswordTextfield(
-                  labelText: "Current Password",
-                  controller: _currentPasswordController),
+                  labelText: "Current Password", controller: _tCurrentPassword),
               ChangingPasswordTextfield(
-                  labelText: "New Password",
-                  controller: _newPasswordController),
+                  labelText: "New Password", controller: _tNewPassword),
               ChangingPasswordTextfield(
-                  labelText: "New Password Repeat",
-                  controller: _newPasswordRepeatController),
+                  labelText: "New Password Confirmation",
+                  controller: _tPasswordConfirmation),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
                 child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: CustomButton(onTap: () {}, text: "Save")),
+                  width: MediaQuery.of(context).size.width,
+                  child: CustomButton(
+                      onTap: () async {
+                        final currentPassword = _tCurrentPassword.text;
+                        final newPassword = _tNewPassword.text;
+                        final passwordConfirmation =
+                            _tPasswordConfirmation.text;
+
+                        if (newPassword != passwordConfirmation) {
+                          // Yeni şifre ile onay şifresi eşleşmiyorsa hata mesajı gösterin
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Yeni şifreler eşleşmiyor."),
+                            ),
+                          );
+                        } else {
+                          try {
+                            // Mevcut şifreyi Firebase Authentication ile doğrula
+                            final user = FirebaseAuth.instance.currentUser;
+                            final credential = EmailAuthProvider.credential(
+                              email: user?.email ?? '',
+                              password: currentPassword,
+                            );
+                            await user
+                                ?.reauthenticateWithCredential(credential);
+
+                            // Kullanıcının şifresini güncelle
+                            await user?.updatePassword(newPassword);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text("Şifreniz başarıyla güncellendi."),
+                              ),
+                            );
+                          } catch (e) {
+                            // Şifre güncelleme hatası
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    "Şuan kullandığınız şifreyi yanlış girdiniz"),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      text: "Save"),
+                ),
               )
             ],
           ),

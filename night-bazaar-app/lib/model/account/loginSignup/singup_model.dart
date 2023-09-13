@@ -23,6 +23,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   final _tName = TextEditingController();
   final _tEmail = TextEditingController();
   final _tPassword = TextEditingController();
+  final _tPasswordConfirmation = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -123,27 +124,48 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: CustomButtonTwo(
-          onTap: () => locator.get<AuthService>().signUp(
-                name: _tName.text,
-                email: _tEmail.text,
-                password: _tPassword.text,
+        onTap: () {
+          final email = _tEmail.text;
+          final password = _tPassword.text;
+          final confirmPassword = _tPasswordConfirmation.text;
+
+          if (email.isEmpty & password.isEmpty & confirmPassword.isEmpty) {
+            // Tüm alanlar boş ise hata mesajı
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Please fill in the fields."),
               ),
-          text: "RESGISTER NOW"),
+            );
+          } else if (password.isEmpty || confirmPassword.isEmpty) {
+            // Şifre alanları boş ise hata mesajı
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Password fields cannot be empty."),
+              ),
+            );
+          } else if (password != confirmPassword) {
+            // Şifreler eşleşmiyorsa hata mesajı
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Passwords do not match."),
+              ),
+            );
+          } else {
+            // Şifreler eşleşiyorsa kayıt işlemini tamamlayın
+            locator.get<AuthService>().signUp(
+                  email: _tEmail.text,
+                  password: password,
+                );
+          }
+        },
+        text: "REGISTER NOW",
+      ),
     );
   }
 
   Column buildSignupSection() {
     return Column(
       children: [
-        // username textfield
-        BuildTextfield(
-            controller: _tName,
-            textInputType: TextInputType.name,
-            isPasswordVisibile: false,
-            icon: Assets.icons.profile,
-            hintText: "User Name",
-            isEmail: false,
-            isPassword: false),
         BuildTextfield(
             controller: _tEmail,
             textInputType: TextInputType.text,
@@ -158,6 +180,14 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             isPasswordVisibile: true,
             icon: Assets.icons.password,
             hintText: "Password",
+            isEmail: false,
+            isPassword: true),
+        BuildTextfield(
+            controller: _tPasswordConfirmation,
+            textInputType: TextInputType.text,
+            isPasswordVisibile: true,
+            icon: Assets.icons.password,
+            hintText: "Confirm Password",
             isEmail: false,
             isPassword: true),
         Container(

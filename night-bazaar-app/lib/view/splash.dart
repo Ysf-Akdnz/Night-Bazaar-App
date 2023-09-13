@@ -68,7 +68,7 @@ class _LoginSplashState extends State<LoginSplash> {
   @override
   void initState() {
     // Ekranı 2 saniye görüntüledikten sonra kimlik doğrulaması yapıldıktan
-    // sonra BaseScaffold ekranına geçiş yapar.
+    // sonra Login Sayfası ekranına geçiş yapar.
     Future.delayed(const Duration(seconds: 2), () {
       Get.to(() => const LoginPage());
     });

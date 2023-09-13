@@ -14,10 +14,7 @@ class AuthService {
     return user != null;
   }
 
-  Future<void> signUp(
-      {required String name,
-      required String email,
-      required String password}) async {
+  Future<void> signUp({required String email, required String password}) async {
     try {
       final UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -25,13 +22,12 @@ class AuthService {
         final String userId = userCredential.user!.uid;
         _registerUser(
             userId: userId,
-            name: name,
+            name: ' ',
             email: email,
             password: password,
             lastName: ' ',
             birtday: ' ',
-            phone: ' ',
-            gender: ' ');
+            phone: ' ');
         Get.to(() => BaseScaffold());
         login(email: email, password: password);
       }
@@ -64,7 +60,6 @@ class AuthService {
       required String password,
       required String lastName,
       required String birtday,
-      required String gender,
       required String phone}) async {
     await userCollection.doc(userId).set({
       "name": name,
@@ -72,8 +67,35 @@ class AuthService {
       "email": email,
       "password": password,
       "birtday": birtday,
-      "gender": gender,
       "phone": phone,
     });
+  }
+
+  Future<Map<String, dynamic>?> getUserProfile() async {
+    final User? user = firebaseAuth.currentUser;
+    if (user != null) {
+      final DocumentSnapshot snapshot =
+          await userCollection.doc(user.uid).get();
+      return snapshot.data() as Map<String, dynamic>?;
+    }
+    return null;
+  }
+
+  Future<void> updateUserProfile(Map<String, dynamic> updatedProfile) async {
+    final User? user = firebaseAuth.currentUser;
+    if (user != null) {
+      await userCollection.doc(user.uid).update(updatedProfile);
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    final User? user = firebaseAuth.currentUser;
+    if (user != null) {
+      // Firestore'daki kullanıcı verilerini sil
+      await userCollection.doc(user.uid).delete();
+
+      // Firebase Authentication'dan kullanıcıyı sil
+      await user.delete();
+    }
   }
 }
