@@ -64,8 +64,9 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
     // Güncelleme işlemi tamamlandığında kullanıcıya
     // bildirim veya geri dönüş sağlayabilirsiniz.
 
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text("Profil bilgileriniz güncellendi"),
       ),
     );
@@ -142,8 +143,8 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text("Dikkat!!!"),
-                            content: Text(
+                            title: const Text("Dikkat!!!"),
+                            content: const Text(
                                 "Hesabı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."),
                             actions: <Widget>[
                               TextButton(
@@ -151,14 +152,14 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
                                   // Onaylandı
                                   Navigator.of(context).pop(true);
                                 },
-                                child: Text("Evet"),
+                                child: const Text("Evet"),
                               ),
                               TextButton(
                                 onPressed: () {
                                   // İptal edildi
                                   Navigator.of(context).pop(false);
                                 },
-                                child: Text("Hayır"),
+                                child: const Text("Hayır"),
                               ),
                             ],
                           );
@@ -173,8 +174,9 @@ class _MyMembershipDetailsState extends State<MyMembershipDetails> {
                         await AuthService().signOut();
 
                         // Kullanıcıya bir bildirim veya yönlendirme gösterin
+                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text("Hesabınız başarıyla silindi."),
                           ),
                         );

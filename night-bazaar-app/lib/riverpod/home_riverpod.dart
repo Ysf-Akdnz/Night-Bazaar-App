@@ -3,8 +3,6 @@
 // Kampanyaların listesi burada tutulur ve bu sınıf ChangeNotifier olarak tanımlanır.
 
 import 'package:flutter/material.dart';
-import 'package:prototip/model/product/home_products_model.dart';
-import 'package:prototip/model/product/product.dart';
 import 'package:prototip/view/assets.dart';
 
 class HomeRiverpod extends ChangeNotifier {

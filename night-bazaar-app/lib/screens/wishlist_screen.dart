@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/constant/constant.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prototip/providers/wishlist_service.dart';
 
 class WishlistScreen extends ConsumerStatefulWidget {
@@ -18,7 +17,6 @@ class _WishlistScreenState extends ConsumerState<WishlistScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -37,16 +35,7 @@ class _WishlistScreenState extends ConsumerState<WishlistScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: SizedBox(
-              height: screenHeight,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text("asd"),
-              ),
-            ),
-          )
+          
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prototip/components/custom_buttons.dart';
 import 'package:prototip/constant/constant.dart';
 import 'package:prototip/model/product/product.dart';
+import 'package:prototip/providers/cart_service.dart';
 import 'package:prototip/providers/wishlist_service.dart';
 
 // Ürünün detaylarını göstermek için kullanılan widget.
@@ -77,7 +78,64 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
   Padding button() {
     return Padding(
       padding: const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
-      child: CustomButton(onTap: () {}, text: "Add to cart"),
+      child: CustomButton(
+        text: "Add to cart",
+        onTap: () async {
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            // Kullanıcı oturum açmışsa ürünü sepete ekleyebiliriz
+            final cartService = CartService();
+            final productToAdd = Product(
+              productId: widget.productId,
+              image: widget.image,
+              title: widget.title,
+              price: widget.price,
+              star: widget.star,
+              descTitle: widget.descTitle,
+              desc: widget.desc,
+              isSaved: isSaved,
+            );
+
+            try {
+              await cartService.addToCart(productToAdd);
+              // Ürün başarılı bir şekilde eklendi, kullanıcıyı bilgilendirin
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Ürün sepete eklendi.'),
+                ),
+              );
+            } catch (error) {
+              // Hata oluştu, kullanıcıyı bilgilendirin
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Ürün eklenirken bir hata oluştu.'),
+                ),
+              );
+            }
+          } else {
+            // Kullanıcı oturum açmamış, uyarı mesajı gösterin
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Oturum Açınız"),
+                  content:
+                      const Text("Ürünü sepete eklemek için oturum açınız."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Kapat"),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -164,15 +222,15 @@ class _ProductDetailState extends ConsumerState<ProductDetail> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Oturum Açınız"),
-                          content: Text(
+                          title: const Text("Oturum Açınız"),
+                          content: const Text(
                               "Favorilere eklemek için lütfen oturum açınız."),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text("Kapat"),
+                              child: const Text("Kapat"),
                             ),
                           ],
                         );

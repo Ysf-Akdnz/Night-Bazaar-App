@@ -72,7 +72,7 @@ class _ChangingPasswordState extends State<ChangingPassword> {
                         if (newPassword != passwordConfirmation) {
                           // Yeni şifre ile onay şifresi eşleşmiyorsa hata mesajı gösterin
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("Yeni şifreler eşleşmiyor."),
                             ),
                           );
@@ -89,8 +89,9 @@ class _ChangingPasswordState extends State<ChangingPassword> {
 
                             // Kullanıcının şifresini güncelle
                             await user?.updatePassword(newPassword);
+                            // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content:
                                     Text("Şifreniz başarıyla güncellendi."),
                               ),
@@ -98,7 +99,7 @@ class _ChangingPasswordState extends State<ChangingPassword> {
                           } catch (e) {
                             // Şifre güncelleme hatası
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text(
                                     "Şuan kullandığınız şifreyi yanlış girdiniz"),
                               ),

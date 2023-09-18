@@ -20,7 +20,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   bool isSignupScreen = false;
   bool isRememberMe = true;
   // text editing controllers
-  final _tName = TextEditingController();
   final _tEmail = TextEditingController();
   final _tPassword = TextEditingController();
   final _tPasswordConfirmation = TextEditingController();

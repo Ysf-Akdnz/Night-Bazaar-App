@@ -151,15 +151,15 @@ class _ProductCardState extends ConsumerState<ProductCard> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text("Oturum Açınız"),
-                                  content: Text(
+                                  title: const Text("Oturum Açınız"),
+                                  content: const Text(
                                       "Favorilere eklemek için lütfen oturum açınız."),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
-                                      child: Text("Kapat"),
+                                      child: const Text("Kapat"),
                                     ),
                                   ],
                                 );
