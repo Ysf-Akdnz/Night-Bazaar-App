@@ -12,12 +12,13 @@ class CartProduct {
     required this.image,
     required this.title,
     required this.price,
-    required this.quantity,
+    this.quantity = 1,
   });
 
   factory CartProduct.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
 
+    // ignore: unnecessary_null_comparison
     if (data == null) {
       // Veri yoksa veya null ise varsayılan değerleri kullanabilirsiniz.
       return CartProduct(
@@ -25,7 +26,7 @@ class CartProduct {
         image: '',
         title: '',
         price: 0,
-        quantity: 0,
+        quantity: 1,
       );
     }
     return CartProduct(
@@ -33,7 +34,7 @@ class CartProduct {
       image: data['image'] ?? '',
       title: data['title'] ?? '',
       price: data['price'] ?? 0,
-      quantity: data['quantity'] ?? 0,
+      quantity: data['quantity'] ?? 1,
     );
   }
 }

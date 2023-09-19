@@ -39,9 +39,33 @@ class WishlistService {
           .collection("users")
           .doc(userUid)
           .collection("wishlist");
-          
+
       await wishlistCollection.doc(productId).delete();
     }
+  }
+
+  // Kullanıcının favori ürünlerini çeken işlev
+  Future<List<Product>> getWishlistProducts() async {
+    final userUid = getCurrentUserUid();
+    if (userUid != null) {
+      final wishlistCollection = FirebaseFirestore.instance
+          .collection("users")
+          .doc(userUid)
+          .collection("wishlist");
+
+      final wishlistSnapshot = await wishlistCollection.get();
+      final List<Product> wishlistProducts = [];
+
+      for (final doc in wishlistSnapshot.docs) {
+        final productData = doc.data() as Map<String, dynamic>;
+        final product = Product.fromMap(
+            productData); // Product sınıfınıza göre bir fabrika metodu eklemeniz gerekebilir
+        wishlistProducts.add(product);
+      }
+
+      return wishlistProducts;
+    }
+    throw Exception("Kullanıcı oturumu açmamış.");
   }
 
   // Kullanıcının favori ürünlerini getiren işlev

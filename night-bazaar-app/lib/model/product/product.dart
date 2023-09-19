@@ -36,6 +36,20 @@ class Product {
     };
   }
 
+  // Fabrika metodu: Map verisini Product nesnesine dönüştürür
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      productId: map['productId'] ?? '',
+      image: map['image'] ?? '',
+      title: map['title'] ?? '',
+      price: map['price'] ?? 0,
+      star: map['star'] ?? '',
+      descTitle: map['descTitle'] ?? '',
+      desc: map['desc'] ?? '',
+      isSaved: map['isSaved'] ?? false,
+    );
+  }
+
   factory Product.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
 

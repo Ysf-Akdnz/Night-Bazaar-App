@@ -17,7 +17,30 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   CartService cartService = CartService();
-  List<CartProduct> cartProducts = [];
+  List<CartProduct> cartProduct = [];
+  int totalPrice = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // initState içinde totalPrice'i güncelleyin
+    _updateTotalPrice();
+  }
+
+  void _updateTotalPrice() async {
+    // Sepetteki ürünleri Firestore'dan çekin
+    final cartProducts = await cartService.fetchCartProducts();
+
+    // Sepetteki ürünlerin toplam fiyatını hesaplayın
+    int newTotalPrice = cartService.calculateTotalPrice(cartProducts);
+
+    // setState kullanarak totalPrice'i güncelleyin
+    setState(() {
+      totalPrice = newTotalPrice;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +77,10 @@ class _CartScreenState extends State<CartScreen> {
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Text('Sepetinizde ürün yok'));
                 }
+
+                // Sepetteki ürünlerin toplam fiyatını hesaplayın
+                totalPrice = cartService.calculateTotalPrice(snapshot.data!);
+
                 return ListView.separated(
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 20),
@@ -111,7 +138,10 @@ class _CartScreenState extends State<CartScreen> {
                                         style: Constant.ptSansNormal),
                                     const SizedBox(width: 10),
                                     GestureDetector(
-                                      onTap: () => () {},
+                                      onTap: () {
+                                        cartService.decrementQuantity(
+                                            cartProduct.docId);
+                                      },
                                       child: Container(
                                         width: 20,
                                         height: 20,
@@ -132,13 +162,16 @@ class _CartScreenState extends State<CartScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 7),
                                       child: Text(
-                                        "1",
+                                        cartProduct.quantity.toString(),
                                         style: Constant.ptSansBold
                                             .copyWith(fontSize: 14),
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () => () {},
+                                      onTap: () {
+                                        cartService.incrementQuantity(
+                                            cartProduct.docId);
+                                      },
                                       child: Container(
                                         width: 20,
                                         height: 20,
@@ -186,7 +219,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: Constant.ptSansBold.copyWith(fontSize: 36),
                 ),
                 Text(
-                  "\$${buildTotalPrice()}",
+                  "\$$totalPrice",
                   style: Constant.ptSansBold.copyWith(fontSize: 36),
                 )
               ],
@@ -201,15 +234,5 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
     );
-  }
-
-  // Sepet toplam tutarını gösteren widget
-  buildTotalPrice() {
-    int totalPrice = 0;
-    for (var product in cartProducts) {
-      totalPrice += (product.price * product.quantity);
-    }
-
-    return totalPrice.toString();
   }
 }
